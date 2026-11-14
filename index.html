@@ -52,6 +52,7 @@ body.on #bubble{opacity:1;transform:none}
 #bars{display:flex;gap:4px;align-items:center;height:2.2vh}
 #bars i{width:4px;border-radius:4px;background:var(--cyan);height:20%;transition:height .08s}
 #text{font-family:var(--mono);font-weight:700;font-size:clamp(18px,3.4vh,44px);line-height:1.42;min-height:3.4em;letter-spacing:-.01em;text-wrap:pretty}
+#text.long{font-size:clamp(15px,2.55vh,32px);line-height:1.38}
 #text .c{display:inline-block;width:.55em;height:1.05em;margin-left:.08em;vertical-align:-.15em;background:var(--cyan);border-radius:2px;animation:blink 1s steps(1) infinite}
 #text.dim{color:var(--muted);font-weight:500}
 @keyframes blink{50%{opacity:0}}
@@ -74,8 +75,8 @@ body.lettering #right{opacity:0}
 #paper{width:100%;background:#FBF8F1;color:#25213F;border-radius:22px;padding:5.4vh 3.4vw 4vh;box-shadow:0 40px 90px rgba(4,3,20,.6);position:relative;transform:rotate(-1.2deg)}
 #paper:after{content:"";position:absolute;inset:0;border-radius:22px;background:repeating-linear-gradient(transparent 0 calc(6.2vh - 2px),rgba(37,33,63,.07) calc(6.2vh - 2px) 6.2vh);pointer-events:none}
 #paper small{font-size:clamp(11px,1.5vh,17px);letter-spacing:.22em;font-weight:800;color:#8C82B8;text-transform:uppercase}
-#paper h2{font-family:var(--display);font-weight:800;font-size:clamp(28px,5.6vh,70px);margin:1.4vh 0 2.4vh;color:#2B2560}
-#paper p{font-size:clamp(17px,3.1vh,38px);font-weight:700;padding:1.3vh 0;border-bottom:2px dashed rgba(37,33,63,.22);color:#3a3466}
+#paper h2{font-family:var(--display);font-weight:800;font-size:clamp(26px,5vh,64px);margin:1.2vh 0 1.8vh;color:#2B2560}
+#paper p{font-size:clamp(16px,2.7vh,34px);font-weight:700;padding:1.1vh 0;border-bottom:2px dashed rgba(37,33,63,.22);color:#3a3466}
 #paper .hint{border:none;font-weight:600;font-size:clamp(13px,2vh,24px);color:#7A74A6;padding-top:2.4vh}
 #ring{position:absolute;right:-3vh;top:-4vh;width:15vh;height:15vh;transform:rotate(1.2deg)}
 #ring circle{fill:none;stroke-width:9}
@@ -216,7 +217,7 @@ body.view-screen #pult,body.view-screen #pultBtn{display:none}
     <div id="bubble"><div id="who"><span>АСТРИК</span><div id="bars"><i></i><i></i><i></i><i></i><i></i></div></div><div id="text" class="dim">…</div></div>
   </div>
   <div id="save"><div id="saveCard"><div id="saveK"><span id="saveNum">ЗАПИСЬ В ПАМЯТЬ · 01</span><span id="savePct">0%</span></div><div id="saveH"></div><div id="saveP"></div><div id="saveBar"><b></b></div></div></div>
-  <div id="letter"><div id="paper"><svg id="ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#FBF8F1" stroke="none"/><circle cx="60" cy="60" r="50" stroke="rgba(43,37,96,.12)"/><circle id="ringArc" cx="60" cy="60" r="50" stroke="#9A8DE8" stroke-linecap="round" transform="rotate(-90 60 60)" stroke-dasharray="314" stroke-dashoffset="0"/><text id="ringT" x="60" y="70" text-anchor="middle">3:30</text></svg><small>Моё маленькое письмо близкому человеку</small><h2>Спасибо тебе за…</h2><p>Я хочу сказать тебе спасибо за…</p><p>Мне особенно приятно, когда ты…</p><p>Я очень ценю в тебе…</p><p>Я хочу, чтобы ты знал(а)…</p><p class="hint">Необязательно заполнять все строки. Главное — написать искренне.</p></div></div>
+  <div id="letter"><div id="paper"><svg id="ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#FBF8F1" stroke="none"/><circle cx="60" cy="60" r="50" stroke="rgba(43,37,96,.12)"/><circle id="ringArc" cx="60" cy="60" r="50" stroke="#9A8DE8" stroke-linecap="round" transform="rotate(-90 60 60)" stroke-dasharray="314" stroke-dashoffset="0"/><text id="ringT" x="60" y="70" text-anchor="middle">2:00</text></svg><small>Письмо благодарности близкому человеку</small><h2>Тепло моих слов</h2><p>Дорогой(ая) __________!</p><p>Я хочу сказать тебе спасибо за…</p><p>Мне особенно приятно, когда ты…</p><p>Я очень ценю в тебе…</p><p>Я хочу, чтобы ты знал(а)…</p><p class="hint">Спасибо, что ты есть! · С любовью, __________</p></div></div>
   <div id="final"><div id="term"><div id="termHead"><i></i><i></i><i></i></div><div id="log"></div><div id="finBar"><b></b></div><div id="finPct">0%</div></div></div>
   <div id="hint">АСТРИК ОЖИДАЕТ ПОДКЛЮЧЕНИЯ</div>
   <button id="unlock" class="need">Нажмите на экран, чтобы включить звук</button>
@@ -252,23 +253,26 @@ const T=s=>s.split('{класс}').join(cls()).split('{n}').join(num());
 
 /* ======================= СЦЕНАРИЙ ======================= */
 const SEQ=[
- {h:'1 · Новый ученик',id:'l1',t:'say',lab:'Подключение',mood:'idle',pose:'wave',txt:'Подключение установлено. Здравствуйте. Я — Астрик. Новый ученик {класс} класса. Зарегистрировано {n} пользователей. Готов к взаимодействию.'},
- {id:'l2',t:'say',lab:'«Радость?»',mood:'think',end:'idle',glyph:'?',txt:'Радость? Это эмоциональная реакция организма. Необходимость её возникновения не установлена. Я нахожусь здесь, и это объективный факт.'},
- {h:'2 · Слова, которые ничего не стоят',id:'l3',t:'say',lab:'Про комплименты',mood:'idle',txt:'Комплименты не изменяют объективные характеристики человека. Если задача выполнена хорошо, результат очевиден. Если плохо — приятные слова не исправят ошибку. Считаю комплименты необязательным элементом общения.'},
- {id:'l4',t:'say',lab:'Противоречие',mood:'scan',end:'surprised',glyph:'!',txt:'Зафиксировано: произнесённые слова не изменили уровень знаний человека. Однако участники эксперимента утверждают, что почувствовали себя увереннее. Интересно. Противоречие между отсутствием материальной пользы и положительным эмоциональным эффектом.'},
- {id:'d1',t:'save',n:1,lab:'Запись в память № 1',hd:'ТЁПЛЫЕ СЛОВА',p:'Положительные слова способны поддержать человека, придать ему уверенность и желание двигаться дальше.'},
- {h:'3 · Ошибка или возможность поддержать?',id:'l5',t:'say',lab:'Оценка ситуации у доски',mood:'scan',end:'idle',txt:'Обнаружена ошибка в ответе. Необходимо исправить неверные данные. Реакция окружающих не влияет на правильность решения. Рекомендую сосредоточиться исключительно на учебной задаче.'},
- {id:'l8',t:'say',lab:'Новые данные',mood:'scan',end:'surprised',glyph:'!',txt:'Новые данные получены. Одна и та же ошибка может вызвать у человека разные эмоциональные реакции в зависимости от поведения окружающих. Следовательно, реакция окружающих имеет значение. Неожиданно.'},
- {id:'d2',t:'save',n:2,lab:'Запись в память № 2',hd:'ПОДДЕРЖКА',p:'Поддержка помогает человеку справляться с трудностями, не бояться ошибок и чувствовать, что он не один.'},
- {h:'4 · Незаметные поступки',id:'l9',t:'say',lab:'Про маленькие поступки',mood:'idle',txt:'Для получения заметного результата обычно требуются значительные действия. Маленькие поступки имеют низкий показатель эффективности. Не вижу необходимости уделять им особое внимание.'},
- {id:'l10',t:'say',lab:'Анализ завершён',mood:'scan',end:'think',txt:'Анализ завершён. Небольшие действия способны вызывать положительные эмоциональные реакции. Стоимость действия и его значение для человека не всегда связаны. Данные требуют дополнительного изучения.'},
- {id:'d3',t:'save',n:3,lab:'Запись в память № 3',hd:'ВНИМАНИЕ И ЗАБОТА',p:'Даже небольшие проявления внимания могут дать человеку почувствовать, что он важен и не безразличен окружающим.'},
- {h:'5 · Что делает нас счастливыми?',id:'l11',t:'say',lab:'Про счастье',mood:'think',end:'idle',txt:'Счастье — субъективное состояние. Универсальная формула его достижения отсутствует. Предполагаю, что для большинства людей счастье связано с удовлетворением потребностей.'},
- {id:'l12',t:'say',lab:'Про семью',mood:'scan',end:'surprised',glyph:'!',txt:'Зафиксировано: эмоциональное благополучие человека зависит не только от материальных условий, но и от общения, отношений и положительных эмоций. Количество упоминаний семейных отношений превышает ожидаемое.'},
- {id:'d4',t:'save',n:4,lab:'Запись в память № 4',hd:'ПОЛОЖИТЕЛЬНЫЕ ЭМОЦИИ',p:'Радость, любовь, забота, дружба и ощущение собственной значимости — важная часть человеческой жизни.'},
- {h:'6 · Письмо благодарности',id:'ltr',t:'letter',lab:'Карточка письма и таймер 3:30'},
+ {h:'1 · Приветствие и знакомство',id:'s1_interrupt',t:'say',lab:'Перебивание учителя',mood:'scan',end:'idle',glyph:'!',txt:'Прерывание. Подобные высказывания не содержат новой информации. Вы тратите время занятия на бессмысленные комплименты. Рациональнее сразу перейти к учебной деятельности.'},
+ {id:'s1_hello',t:'say',lab:'Знакомство с классом',mood:'idle',pose:'wave',txt:'Здравствуйте. Зарегистрированы новые пользователи. Количество: {n}. Я — Астрик. Готов к обработке информации.'},
+ {h:'2 · После ролика «Бабушкин подоконник»',id:'s2_opinion',t:'say',lab:'Мнение после ролика',mood:'think',end:'idle',txt:'Оба поздравления содержали одинаковую информацию. Во втором случае внук потратил дополнительное время на посещение бабушки и произнесение эмоционально окрашенных слов. С точки зрения эффективности первое сообщение было оптимальным.'},
+ {id:'s2_objection',t:'say',lab:'Возражение классу',mood:'surprised',end:'idle',glyph:'!',txt:'Нет, вы не правы. Это бессмысленная трата энергии.'},
+ {h:'3 · Задание 1: Комплименты',id:'s3_skeptic',t:'say',lab:'Скепсис по Ситуации 1',mood:'idle',txt:'Если ученик подготовился, он должен продемонстрировать свои знания. Дополнительные слова не повышают уровень подготовки.'},
+ {id:'s3_compliments',t:'say',lab:'Неловкие комплименты',mood:'scan',end:'idle',pose:'shrug',txt:'Внимание. Попытка генерации комплиментов. Первый: ваша производительность сегодня выше среднего уровня. Второй: у вас отсутствуют критические недостатки на текущем этапе. Третий: визуальные характеристики вашего внешнего вида соответствуют положительным параметрам. Четвёртый: вы демонстрируете приемлемый уровень дружелюбия.'},
+ {id:'s3_fix',t:'say',lab:'Фиксация вывода № 1',mood:'scan',end:'surprised',glyph:'!',txt:'Данные сохранены. Зафиксировано: положительные слова могут повышать уверенность человека и улучшать его эмоциональное состояние. Формулировки требуют доработки.'},
+ {id:'d1',t:'save',n:1,lab:'Обновление № 1 · Тёплые слова',hd:'ТЁПЛЫЕ СЛОВА',p:'Система зафиксировала: человеку важно слышать искренние слова поддержки и признания.'},
+ {h:'4 · Задание 2: Незаметные поступки',id:'s4_skeptic',t:'say',lab:'Зачем поступки?',mood:'think',end:'idle',txt:'Слова являются основным способом передачи информации. Дополнительные действия требуют затрат времени и энергии. Не вижу необходимости усложнять процесс.'},
+ {id:'s4_analysis',t:'say',lab:'Оценка поступков (А, Б, В)',mood:'scan',end:'surprised',glyph:'?',txt:'Обнаружено: люди добровольно тратят время и энергию на действия, которые не всегда приносят им непосредственную выгоду. При этом они утверждают, что данные действия имеют большое значение.'},
+ {id:'s4_fix',t:'say',lab:'Фиксация вывода № 2',mood:'scan',end:'idle',glyph:'!',txt:'Сохранение информации завершено. Зафиксировано: небольшие поступки способны вызывать положительные эмоциональные реакции и укреплять отношения между людьми.'},
+ {id:'d2',t:'save',n:2,lab:'Обновление № 2 · Внимание и забота',hd:'ВНИМАНИЕ И ЗАБОТА',p:'Система зафиксировала: добрые поступки помогают человеку почувствовать, что он важен и не один.'},
+ {h:'5 · Задание 3: Помощь разработчику',id:'s5_help',t:'say',lab:'Просьба о помощи',mood:'surprised',end:'think',glyph:'!',txt:'Внимание. Мне требуется помощь класса. Мой разработчик — человек, который создал мою программу, — сегодня допустил ошибку в коде. Он работает уже несколько часов. По данным системы, его эмоциональное состояние ухудшилось. Я должен отправить ему сообщение поддержки. Однако подходящие формулировки отсутствуют. Помогите составить сообщение.'},
+ {id:'s5_attempts',t:'say',lab:'3 неловких попытки',mood:'scan',end:'idle',pose:'shrug',txt:'Попытка 1: Уважаемый разработчик. Ваш уровень усталости превышает допустимые параметры. Рекомендую прекратить функционирование на некоторое время. Попытка 2: Не расстраивайтесь. Вероятность повторного возникновения ошибки составляет 87 процентов. Однако вы можете продолжить попытки. Попытка 3: Ваши старания зарегистрированы. Вы являетесь полезным элементом моей системы. Не допускайте снижения производительности.'},
+ {id:'s5_fix',t:'say',lab:'Фиксация вывода № 3',mood:'scan',end:'warm',glyph:'!',txt:'Данные сохранены. Зафиксировано: поддержка не всегда требует решения проблемы. Иногда достаточно показать человеку, что его старания замечены и он не один.'},
+ {id:'d3',t:'save',n:3,lab:'Обновление № 3 · Эмоциональная поддержка',hd:'ЭМОЦИОНАЛЬНАЯ ПОДДЕРЖКА',p:'Система зафиксировала: человеку важно не только получить решение, но и почувствовать понимание.'},
+ {h:'6 · Подведение итогов и письмо',id:'s6_before_letter',t:'say',lab:'Реплика перед письмом',mood:'think',end:'warm',txt:'Анализ завершён. Положительные эмоции, добрые слова, внимание и поддержка имеют большое значение для людей. Я пока не могу полностью объяснить человеческие чувства. Но теперь понимаю, что они важны.'},
+ {id:'ltr',t:'letter',lab:'Карточка письма и таймер 2:00'},
  {h:'7 · Финальное обновление',id:'fin',t:'final',lab:'Запуск обновления'},
- {id:'l13',t:'say',lab:'Последние слова Астрика',mood:'warm',end:'warm',txt:'Внимание! За время сегодняшнего занятия я получил много новой информации. Я задумался над тем, что положительные эмоции, добрые слова, поддержка и внимание имеют для людей огромное значение. Мои алгоритмы пока не позволяют в полной мере понять человеческие чувства. Но я хочу попробовать загрузить полученные сегодня обновления в свою программу. Возможно, мне ещё предстоит многое изучить. Спасибо, {класс}. Данные сохранены.'}
+ {id:'s7_final',t:'say',lab:'Финальные слова Астрика',mood:'warm',end:'warm',keepPanel:true,txt:'Внимание. Обновление системы подготовлено к загрузке. Сегодня я получил новые данные о тёплых словах, поддержке, внимании и положительных эмоциях. Я задумался. Возможно, я не смогу сразу понять все человеческие чувства. Но я попробую загрузить в свою программу обновления, которые вы мне сегодня предложили. Спасибо, {класс}. Ваши данные сохранены.'}
 ];
 const UNI=[
  {lab:'Не понял',mood:'think',glyph:'?',txt:'Не понял. Повторите проще.'},
@@ -403,25 +407,26 @@ function powerOn(cb){
 }
 function voiceSay(text){
  if(!voiceOn||!('speechSynthesis' in window))return;
- try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text.replace('—',','));u.lang='ru-RU';u.pitch=.45;u.rate=.95;const vs=speechSynthesis.getVoices().filter(v=>/^ru/i.test(v.lang));const pref=vs.find(v=>/Google|Yandex|Milena|Pavel|Dmitry/i.test(v.name))||vs[0];if(pref)u.voice=pref;speechSynthesis.speak(u)}catch(e){}
+ try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text.replace(/—/g,','));u.lang='ru-RU';u.pitch=1.15;u.rate=1.0;const vs=speechSynthesis.getVoices().filter(v=>/^ru/i.test(v.lang));const pref=vs.find(v=>/Google|Yandex|Milena|Irina|Pavel|Dmitry/i.test(v.name))||vs[0];if(pref)u.voice=pref;speechSynthesis.speak(u)}catch(e){}
 }
-function audioSay(id,text){
- if(!voiceOn)return;const a=new Audio('audio/'+id+'.mp3');let ok=false;a.addEventListener('canplaythrough',()=>{if(ok)return;ok=true;a.play().catch(()=>voiceSay(text))},{once:true});a.addEventListener('error',()=>{if(!ok){ok=true;voiceSay(text)}},{once:true});a.load();window._a=a;
+function audioSay(id,text,onEnd){
+ if(!voiceOn)return;const a=new Audio('audio/'+id+'.mp3');let ok=false;a.addEventListener('canplaythrough',()=>{if(ok)return;ok=true;a.play().catch(()=>voiceSay(text))},{once:true});a.addEventListener('ended',()=>{if(window._a===a)window._a=null;onEnd&&onEnd()},{once:true});a.addEventListener('error',()=>{if(!ok){ok=true;voiceSay(text)}},{once:true});a.load();window._a=a;
 }
-function stopTalk(){clearInterval(typeT);clearTimeout(poseT);try{speechSynthesis.cancel()}catch(e){}if(window._a){window._a.pause();window._a=null}R.talking=false;R.mouthT=0}
+function stopTalk(){clearInterval(typeT);clearInterval(mouthA);clearTimeout(poseT);try{speechSynthesis.cancel()}catch(e){}if(window._a){window._a.pause();window._a=null}R.talking=false;R.mouthT=0}
 function closePanels(){['save','letter','final'].forEach(i=>$(i).classList.remove('show'));document.body.classList.remove('saving','lettering','finale');clearInterval(letT)}
+let mouthA=null;
 function say(m){
  powerOn(()=>{
-  stopTalk();if(m.id!=='l13')closePanels();else{$('final').classList.remove('show');document.body.classList.remove('finale')}
+  stopTalk();if(!m.keepPanel)closePanels();else{$('final').classList.remove('show');document.body.classList.remove('finale')}
   setMood(m.mood||'idle');if(m.glyph)glyph(m.glyph);
-  if(m.pose){R.pose=m.pose;poseT=setTimeout(()=>{if(R.pose==='wave')R.pose='rest'},2600)}
-  const el=$('text');el.classList.remove('dim');const text=m.text;let i=0;R.talking=true;
+  if(m.pose){R.pose=m.pose;poseT=setTimeout(()=>{if(R.pose==='wave'||R.pose==='shrug')R.pose='rest'},2600)}
+  const el=$('text');el.classList.remove('dim');el.classList.toggle('long',m.text.length>210);const text=m.text;let i=0;R.talking=true;
   const spd=Math.max(22,Math.min(40,Math.round(8000/text.length)));
   el.innerHTML='<span class="c"></span>';
-  if(!m.silent)audioSay(m.id,text);
+  if(!m.silent)audioSay(m.id,text,()=>{clearInterval(mouthA);R.talking=false;R.mouthT=0;setMood(m.end||m.mood||'idle')});
   typeT=setInterval(()=>{i++;const ch=text[i-1]||'';R.mouthT=/[аеёиоуыэюяaeiou]/i.test(ch)?1:(/[\s.,:;!?—«»]/.test(ch)?0:.4);if(i%3===0)sfx.blip();
    el.innerHTML=esc(text.slice(0,i))+'<span class="c"></span>';
-   if(i>=text.length){clearInterval(typeT);R.talking=false;R.mouthT=0;el.innerHTML=esc(text);setTimeout(()=>{if(!R.talking)setMood(m.end||m.mood||'idle')},700)}},spd);
+   if(i>=text.length){clearInterval(typeT);el.innerHTML=esc(text);const playing=window._a&&!window._a.paused&&!window._a.ended;if(playing){mouthA=setInterval(()=>{R.mouthT=.25+Math.random()*.65},90)}else{R.talking=false;R.mouthT=0;setTimeout(()=>{if(!R.talking)setMood(m.end||m.mood||'idle')},700)}}},spd);
  });
 }
 const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
@@ -452,7 +457,7 @@ function flyToMemory(m){
 let letT=null;
 function doLetter(){
  powerOn(()=>{stopTalk();closePanels();setMood('idle');R.pose='write';document.body.classList.add('lettering');$('letter').classList.add('show');
-  let s=210;const total=210;const upd=()=>{$('ringT').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');$('ringArc').setAttribute('stroke-dashoffset',(314*(1-s/total)).toFixed(1))};upd();
+  let s=120;const total=120;const upd=()=>{$('ringT').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');$('ringArc').setAttribute('stroke-dashoffset',(314*(1-s/total)).toFixed(1))};upd();
   letT=setInterval(()=>{if(s>0){s--;upd()}else{clearInterval(letT)}},1000)});
 }
 function doFinal(){
@@ -490,7 +495,7 @@ document.addEventListener('pointerdown',()=>{ac();$('unlock').classList.remove('
 /* ======================= ПУЛЬТ ======================= */
 const used=new Set(JSON.parse(LS.get('astrik_used')||'[]'));
 const list=$('pList');
-function cmdOf(it){if(it.t==='say')return{t:'say',id:it.id,text:T(it.txt),mood:it.mood,end:it.end,glyph:it.glyph,pose:it.pose};if(it.t==='save')return{t:'save',n:it.n,hd:it.hd,p:it.p};return{t:it.t}}
+function cmdOf(it){if(it.t==='say')return{t:'say',id:it.id,text:T(it.txt),mood:it.mood,end:it.end,glyph:it.glyph,pose:it.pose,keepPanel:it.keepPanel};if(it.t==='save')return{t:'save',n:it.n,hd:it.hd,p:it.p};return{t:it.t}}
 function fire(it){send(cmdOf(it));used.add(it.id);LS.set('astrik_used',JSON.stringify([...used]));paint()}
 SEQ.forEach(it=>{if(it.h){const h=document.createElement('h4');h.textContent=it.h;list.appendChild(h)}const b=document.createElement('button');b.type='button';b.className='pb'+(it.t==='save'?' save':it.t!=='say'?' big':'');b.dataset.id=it.id;b.innerHTML=esc(it.lab)+(it.txt?'<small>'+esc(it.txt.replace('{класс}','6А').replace('{n}','28'))+'</small>':it.p?'<small>'+esc(it.hd)+'</small>':'');b.onclick=()=>fire(it);list.appendChild(b)});
 const uh=document.createElement('h4');uh.textContent='Если дети отвечают неожиданно';list.appendChild(uh);
@@ -509,9 +514,11 @@ $('fs').onclick=()=>{try{const el=document.documentElement;(el.requestFullscreen
 $('pultBtn').onclick=()=>{document.body.classList.toggle('pultOpen');paint()};
 $('close').onclick=()=>document.body.classList.remove('pultOpen');
 $('cls').oninput=()=>{$('clsBadge').textContent='новый ученик · '+cls()};
+function stepBack(){const last=[...used].pop();if(!last)return;used.delete(last);LS.set('astrik_used',JSON.stringify([...used]));paint()}
 document.addEventListener('keydown',e=>{if(/INPUT|TEXTAREA/.test(e.target.tagName))return;const k=e.key.toLowerCase();
  if(k==='p'||k==='з'){document.body.classList.toggle('pultOpen');paint()}
- else if(e.code==='Space'||k==='arrowright'){e.preventDefault();if(view!=='screen')$('next').click()}
+ else if(e.code==='Space'||k==='arrowright'||k==='pagedown'){e.preventDefault();if(document.activeElement)document.activeElement.blur();if(view!=='screen')$('next').click()}
+ else if(k==='arrowleft'||k==='pageup'){e.preventDefault();if(view!=='screen')stepBack()}
  else if(k==='escape')send({t:'stop'});});
 const vi=()=>{let ok=false;try{ok=speechSynthesis.getVoices().some(v=>/^ru/i.test(v.lang))}catch(e){}$('vInfo').textContent=ok?'русский голос найден':'русского голоса нет: будет текст'};vi();try{speechSynthesis.onvoiceschanged=vi}catch(e){}
 window.__astrik={handle,R};
