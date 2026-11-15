@@ -100,14 +100,12 @@ body.view-screen #unlock.need{display:block}
 #hint{position:absolute;left:50%;bottom:4vh;transform:translateX(-50%);font-size:clamp(11px,1.6vh,18px);letter-spacing:.24em;color:rgba(169,165,212,.6);font-weight:800;transition:opacity .6s}
 body.on #hint{opacity:0}
 /* ----- pult & step badge ----- */
-#stepNum{position:fixed;left:12px;bottom:10px;z-index:35;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(201,198,230,.38);pointer-events:none;user-select:none}
-#pultBtn{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:12px;z-index:41;background:rgba(15,11,53,.7);color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:7px 14px;font-size:12px;cursor:pointer;opacity:.4;transition:opacity .2s}
-#pultBtn:hover{opacity:1}
+#stepNum{position:fixed;left:12px;bottom:10px;z-index:35;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(201,198,230,.18);pointer-events:none;user-select:none}
 #pult{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);z-index:40;background:rgba(12,10,40,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-left:1px solid var(--line);transform:translateX(102%);transition:transform .35s cubic-bezier(.2,.9,.3,1);display:flex;flex-direction:column}
 body.pultOpen #pult{transform:none}
 body.view-pult #pult{width:100vw;transform:none;border:none}
-body.view-pult #app,body.view-pult #pultBtn,body.view-pult #stepNum{display:none}
-body.view-screen #pult,body.view-screen #pultBtn{display:none}
+body.view-pult #app,body.view-pult #stepNum{display:none}
+body.view-screen #pult{display:none}
 #pHead{padding:16px 18px 12px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
 #pHead .t{display:flex;justify-content:space-between;align-items:center}
 #pHead b{font-family:var(--display);font-size:16px;letter-spacing:.1em}
@@ -147,7 +145,7 @@ body.view-screen #pult,body.view-screen #pultBtn{display:none}
 <body>
 <div id="app">
   <canvas id="fx"></canvas>
-  <div id="brand"><i></i><b>АСТРИК</b><span id="clsBadge">новый ученик · 6А</span></div>
+  <div id="brand"><i></i><b>АСТРИК</b><span id="clsBadge">новый ученик · 6Б</span></div>
   <div id="stage">
     <div id="spot"></div>
     <svg id="robot" viewBox="0 0 600 700" aria-label="Робот Астрик">
@@ -230,7 +228,6 @@ body.view-screen #pult,body.view-screen #pultBtn{display:none}
   <button id="unlock" class="need">Нажмите на экран, чтобы включить звук</button>
 </div>
 <div id="stepNum" aria-hidden="true"></div>
-<button id="pultBtn" type="button">Пульт · P</button>
 <aside id="pult" aria-label="Пульт ведущего">
   <div id="pHead">
     <div class="t"><b>ПУЛЬТ АСТРИКА</b><div style="display:flex;gap:6px"><a class="tg" href="keys/" target="_blank">Клавиши ↗</a><button class="tg" id="close" type="button">Скрыть</button></div></div>
@@ -242,7 +239,7 @@ body.view-screen #pult,body.view-screen #pultBtn{display:none}
       <button class="tg" id="reset" type="button">Сбросить</button>
     </div>
     <div class="row">
-      <label class="tg" for="cls">Класс <input id="cls" value="6А"></label>
+      <label class="tg" for="cls">Класс <input id="cls" value="6Б"></label>
       <label class="tg" for="num">Учеников <input id="num" value="28"></label>
       <span id="vInfo" style="font-size:11px;color:var(--muted)"></span>
     </div>
@@ -256,13 +253,13 @@ const $=id=>document.getElementById(id);
 const LS={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 const view=(location.hash||'').replace('#','')||null;
 document.body.classList.add('view-'+(view||'both'));
-const cls=()=>$('cls').value.trim()||'6А', num=()=>$('num').value.trim()||'28';
+const cls=()=>$('cls').value.trim()||'6Б', num=()=>$('num').value.trim()||'28';
 const T=s=>s.split('{класс}').join(cls()).split('{n}').join(num());
 
 /* ======================= СЦЕНАРИЙ ======================= */
 const SEQ=[
  {h:'1 · Приветствие и знакомство',id:'s1_interrupt',code:'Digit1',key:'1',t:'say',lab:'Перебивание учителя',mood:'scan',end:'idle',glyph:'!',txt:'Это бессмысленно. Вы нерационально тратите время занятия. Комплименты не содержат полезной информации.'},
- {id:'s1_hello',code:'Digit2',key:'2',t:'say',lab:'Знакомство с классом',mood:'idle',pose:'wave',txt:'Здравствуйте. Зарегистрированы новые пользователи. Количество: {n}. Я — Астрик. Готов к обработке информации.'},
+ {id:'s1_hello',code:'Digit2',key:'2',t:'say',lab:'Знакомство с классом',mood:'idle',pose:'wave',txt:'Здравствуйте. Зарегистрированы новые пользователи. Я — Астрик. Готов к обработке информации.'},
  {h:'2 · После ролика о бабушке',id:'s2_opinion',code:'Digit3',key:'3',t:'say',lab:'Мнение после ролика',mood:'think',end:'idle',txt:'Оба поздравления содержали одинаковую информацию. Во втором случае внук потратил дополнительное время на посещение бабушки и эмоционально окрашенные слова. Первое сообщение было эффективнее.'},
  {id:'s2_objection',code:'Digit4',key:'4',t:'say',lab:'Возражение классу',mood:'surprised',end:'idle',glyph:'!',txt:'Нет, вы не правы. Это бессмысленная трата энергии.'},
  {h:'3 · Аквариум 1: Комплименты',id:'s3_compliment',code:'Digit5',key:'5',t:'say',lab:'Неловкий комплимент',mood:'scan',end:'idle',pose:'shrug',txt:'Попытка генерации комплимента: «Ваша производительность сегодня выше среднего уровня. Вы демонстрируете приемлемый уровень дружелюбия».'},
@@ -416,29 +413,46 @@ function voiceSay(text){
  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text.replace(/—/g,','));u.lang='ru-RU';u.pitch=1.15;u.rate=1.0;const vs=speechSynthesis.getVoices().filter(v=>/^ru/i.test(v.lang));const pref=vs.find(v=>/Google|Yandex|Milena|Irina|Pavel|Dmitry/i.test(v.name))||vs[0];if(pref)u.voice=pref;speechSynthesis.speak(u)}catch(e){}
 }
 let talkGen=0,panelGen=0,panelTimers=[];
+const AUDIO_CACHE={};
+function preloadAudio(id){if(!AUDIO_CACHE[id]){const a=new Audio('audio/'+id+'.mp3');a.preload='auto';try{a.load()}catch(e){}AUDIO_CACHE[id]=a}return AUDIO_CACHE[id]}
+SEQ.forEach(x=>{if(x.t==='say')preloadAudio(x.id)});
+UNI.forEach((u,i)=>preloadAudio('u'+(i+1)));
 function clearPanelTimers(){panelGen++;panelTimers.forEach(t=>{clearTimeout(t);clearInterval(t)});panelTimers=[]}
-function audioSay(id,text,onEnd){
- if(!voiceOn)return;const gen=talkGen;const a=new Audio('audio/'+id+'.mp3');let ok=false;
- a.addEventListener('canplaythrough',()=>{if(ok||gen!==talkGen)return;ok=true;a.play().catch(()=>{if(gen===talkGen)voiceSay(text)})},{once:true});
- a.addEventListener('ended',()=>{if(window._a===a)window._a=null;if(gen===talkGen)onEnd&&onEnd()},{once:true});
- a.addEventListener('error',()=>{if(!ok&&gen===talkGen){ok=true;voiceSay(text)}},{once:true});
- a.load();window._a=a;
+function audioSay(id,text,onStart,onEnd){
+ const gen=talkGen;
+ if(!voiceOn){onStart();return}
+ const a=preloadAudio(id);let started=false,done=false;
+ const begin=()=>{if(started||gen!==talkGen)return;started=true;onStart()};
+ const fallback=()=>{if(done||gen!==talkGen)return;done=true;if(window._a===a)window._a=null;voiceSay(text);begin()};
+ const timer=setTimeout(fallback,1600);
+ a.onended=()=>{clearTimeout(timer);if(window._a===a)window._a=null;if(gen===talkGen)onEnd&&onEnd()};
+ a.onerror=()=>{clearTimeout(timer);fallback()};
+ try{a.pause();a.currentTime=0}catch(e){}
+ window._a=a;
+ const p=a.play();
+ if(p&&typeof p.then==='function'){p.then(()=>{clearTimeout(timer);begin()}).catch(()=>{clearTimeout(timer);fallback()})}
+ else{clearTimeout(timer);begin()}
 }
-function stopTalk(){talkGen++;clearInterval(typeT);clearInterval(mouthA);clearTimeout(poseT);try{speechSynthesis.cancel()}catch(e){}if(window._a){try{window._a.pause();window._a.removeAttribute('src');window._a.load()}catch(e){}window._a=null}R.talking=false;R.mouthT=0}
+function stopTalk(){talkGen++;clearInterval(typeT);clearInterval(mouthA);clearTimeout(poseT);try{speechSynthesis.cancel()}catch(e){}if(window._a){try{window._a.onended=null;window._a.onerror=null;window._a.pause();window._a.currentTime=0}catch(e){}window._a=null}R.talking=false;R.mouthT=0}
 function closePanels(){clearPanelTimers();['save','letter','final'].forEach(i=>$(i).classList.remove('show'));document.body.classList.remove('saving','lettering','finale');clearInterval(letT)}
 let mouthA=null;
 function say(m){
  powerOn(()=>{
-  stopTalk();if(!m.keepPanel)closePanels();else{$('final').classList.remove('show');document.body.classList.remove('finale')}
+  stopTalk();const gen=talkGen;if(!m.keepPanel)closePanels();else{$('final').classList.remove('show');document.body.classList.remove('finale')}
   setMood(m.mood||'idle');if(m.glyph)glyph(m.glyph);
   if(m.pose){R.pose=m.pose;poseT=setTimeout(()=>{if(R.pose==='wave'||R.pose==='shrug')R.pose='rest'},2600)}
   const el=$('text');el.classList.remove('dim');el.classList.toggle('long',m.text.length>210);const text=m.text;let i=0;R.talking=true;
-  const spd=Math.max(22,Math.min(40,Math.round(8000/text.length)));
   el.innerHTML='<span class="c"></span>';
-  if(!m.silent)audioSay(m.id,text,()=>{clearInterval(mouthA);R.talking=false;R.mouthT=0;setMood(m.end||m.mood||'idle')});
-  typeT=setInterval(()=>{i++;const ch=text[i-1]||'';R.mouthT=/[аеёиоуыэюяaeiou]/i.test(ch)?1:(/[\s.,:;!?—«»]/.test(ch)?0:.4);if(i%3===0)sfx.blip();
-   el.innerHTML=esc(text.slice(0,i))+'<span class="c"></span>';
-   if(i>=text.length){clearInterval(typeT);el.innerHTML=esc(text);const playing=window._a&&!window._a.paused&&!window._a.ended;if(playing){mouthA=setInterval(()=>{R.mouthT=.25+Math.random()*.65},90)}else{R.talking=false;R.mouthT=0;setTimeout(()=>{if(!R.talking)setMood(m.end||m.mood||'idle')},700)}}},spd);
+  const startTyping=()=>{
+   if(gen!==talkGen)return;
+   const durMs=(window._a&&isFinite(window._a.duration)&&window._a.duration>0)?window._a.duration*1000:Math.min(8000,text.length*36);
+   const spd=Math.max(18,Math.min(46,Math.round((durMs*.85)/text.length)));
+   typeT=setInterval(()=>{if(gen!==talkGen){clearInterval(typeT);return}i++;const ch=text[i-1]||'';R.mouthT=/[аеёиоуыэюяaeiou]/i.test(ch)?1:(/[\s.,:;!?—«»]/.test(ch)?0:.4);if(i%3===0&&!window._a)sfx.blip();
+    el.innerHTML=esc(text.slice(0,i))+'<span class="c"></span>';
+    if(i>=text.length){clearInterval(typeT);el.innerHTML=esc(text);const playing=window._a&&!window._a.paused&&!window._a.ended;if(playing){mouthA=setInterval(()=>{R.mouthT=.25+Math.random()*.65},90)}else{R.talking=false;R.mouthT=0;setTimeout(()=>{if(!R.talking)setMood(m.end||m.mood||'idle')},700)}}},spd);
+  };
+  if(m.silent)startTyping();
+  else audioSay(m.id,text,startTyping,()=>{clearInterval(mouthA);R.talking=false;R.mouthT=0;setMood(m.end||m.mood||'idle')});
  });
 }
 const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
@@ -509,12 +523,12 @@ document.addEventListener('pointerdown',unlockAudio,{once:true});
 document.addEventListener('keydown',unlockAudio,{once:true});
 
 /* ======================= ПУЛЬТ ======================= */
-const validIds=new Set(SEQ.map(x=>x.id));
-const used=new Set((JSON.parse(LS.get('astrik_used')||'[]')).filter(id=>validIds.has(id)));
-let curIdx=Number(LS.get('astrik_idx'));if(!Number.isInteger(curIdx)||curIdx<-1||curIdx>=SEQ.length)curIdx=-1;
+try{localStorage.removeItem('astrik_used');localStorage.removeItem('astrik_idx')}catch(e){}
+const used=new Set();
+let curIdx=-1;
 const list=$('pList');
 function cmdOf(it,step){if(it.t==='say')return{t:'say',id:it.id,step,text:T(it.txt),mood:it.mood,end:it.end,glyph:it.glyph,pose:it.pose,keepPanel:it.keepPanel};if(it.t==='save')return{t:'save',step,n:it.n,hd:it.hd,p:it.p};return{t:it.t,step}}
-function syncPult(){LS.set('astrik_used',JSON.stringify([...used]));LS.set('astrik_idx',String(curIdx));if(BC)BC.postMessage({t:'sync',idx:curIdx,used:[...used]});paint()}
+function syncPult(){if(BC)BC.postMessage({t:'sync',idx:curIdx,used:[...used]});paint()}
 function fireIdx(idx){
  if(idx<0||idx>=SEQ.length)return;
  curIdx=idx;const it=SEQ[idx];used.add(it.id);syncPult();send(cmdOf(it,idx+1));
@@ -550,7 +564,6 @@ function cfgPaint(){$('tVoice').classList.toggle('off',!voiceOn);$('tFx').classL
 $('tVoice').onclick=()=>{voiceOn=!voiceOn;LS.set('astrik_voice',voiceOn?'1':'0');cfgPaint();send({t:'cfg',voice:voiceOn,fx:fxOn})};
 $('tFx').onclick=()=>{fxOn=!fxOn;LS.set('astrik_fx',fxOn?'1':'0');cfgPaint();send({t:'cfg',voice:voiceOn,fx:fxOn})};
 $('fs').onclick=()=>{try{const el=document.documentElement;(el.requestFullscreen?el.requestFullscreen():Promise.reject()).catch(()=>{})}catch(e){}};
-$('pultBtn').onclick=()=>{document.body.classList.toggle('pultOpen');paint()};
 $('close').onclick=()=>document.body.classList.remove('pultOpen');
 $('cls').oninput=()=>{$('clsBadge').textContent='новый ученик · '+cls()};
 const keyMap=new Map();
