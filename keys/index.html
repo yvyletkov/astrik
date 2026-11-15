@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Шпаргалка клавиш · Астрик</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Manrope:wght@500;700;800&family=JetBrains+Mono:wght@600;700&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --night:#0A0920;--night2:#141040;--card:rgba(28,23,82,.78);--line:rgba(201,198,230,.16);
+  --text:#F4F2FF;--muted:#A9A5D4;--cyan:#86E3F2;--mint:#7CCFB0;--sand:#E9D39C;--peach:#F2B79B;--violet:#9A8DE8;
+  --display:"Unbounded","Manrope",system-ui,sans-serif;--ui:"Manrope",system-ui,sans-serif;--mono:"JetBrains Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:linear-gradient(165deg,var(--night2),var(--night) 55%,#07061a);color:var(--text);font-family:var(--ui);min-height:100vh;padding:0 0 40px;-webkit-font-smoothing:antialiased}
+header{position:sticky;top:0;z-index:10;background:rgba(10,9,32,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:12px 14px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.top h1{font-family:var(--display);font-size:15px;letter-spacing:.08em}
+.top a{font-size:12px;font-weight:700;color:var(--cyan);text-decoration:none;border:1px solid rgba(134,227,242,.3);padding:5px 10px;border-radius:99px}
+.navKeys{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.nk{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:10px;padding:6px 4px;text-align:center}
+.nk kbd{display:block;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--sand)}
+.nk span{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}
+main{max-width:640px;margin:0 auto;padding:8px 14px}
+.stage{margin-top:18px}
+.sh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;padding:0 2px}
+.sh h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);font-weight:800}
+.sh time{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.card{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:7px}
+.card.save{border-color:rgba(124,207,176,.42);background:rgba(22,52,68,.55)}
+.card.big{border-color:rgba(233,211,156,.42);background:rgba(46,38,88,.68)}
+.num{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--muted);min-width:22px;padding-top:3px}
+.body{flex:1;min-width:0}
+.title{font-size:14px;font-weight:800;line-height:1.25}
+.cue{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.35}
+.kbox{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:44px;padding:5px 7px;border-radius:10px;background:rgba(134,227,242,.12);border:1px solid rgba(134,227,242,.38);flex-shrink:0}
+.kbox b{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--cyan);line-height:1}
+.kbox small{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:2px;line-height:1}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.grid .card{margin:0;padding:9px 10px}
+.note{margin-top:16px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.45}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <h1>АСТРИК · КЛАВИШИ</h1>
+    <a href="../">Открыть Астрика ↗</a>
+  </div>
+  <div class="navKeys">
+    <div class="nk"><kbd>→ / Пробел</kbd><span>Следующая</span></div>
+    <div class="nk"><kbd>← / PgUp</kbd><span>Предыдущая</span></div>
+    <div class="nk"><kbd>Esc</kbd><span>Замолчать</span></div>
+    <div class="nk"><kbd>P / З</kbd><span>Пульт</span></div>
+  </div>
+</header>
+<main id="app"></main>
+<script>
+const STAGES=[
+ {t:'1 · Приветствие и знакомство',tm:'0:00–2:00',items:[
+  {n:'01',k:'1',ru:'',lab:'Перебивание учителя',txt:'«Это бессмысленно. Вы нерационально тратите время занятия. Комплименты не содержат полезной информации.»'},
+  {n:'02',k:'2',ru:'',lab:'Знакомство с классом',txt:'«Здравствуйте. Зарегистрированы новые пользователи. Количество: 28. Я — Астрик. Готов к обработке информации.»'}
+ ]},
+ {t:'2 · После ролика о бабушке',tm:'2:00–5:00',items:[
+  {n:'03',k:'3',ru:'',lab:'Мнение после ролика',txt:'«Оба поздравления содержали одинаковую информацию… Первое сообщение было эффективнее.»'},
+  {n:'04',k:'4',ru:'',lab:'Возражение классу',txt:'«Нет, вы не правы. Это бессмысленная трата энергии.»'}
+ ]},
+ {t:'3 · Аквариум 1: Комплименты',tm:'5:00–9:00',items:[
+  {n:'05',k:'5',ru:'',lab:'Неловкий комплимент',txt:'«Попытка генерации комплимента: ваша производительность сегодня выше среднего уровня…»'},
+  {n:'06',k:'6',ru:'',lab:'Фиксация вывода № 1',txt:'«Данные сохранены. Зафиксировано: искренние положительные слова могут поддержать человека…»'},
+  {n:'07',k:'7',ru:'',type:'save',lab:'Обновление № 1 · ТЁПЛЫЕ СЛОВА',txt:'Плашка: «Человеку важно слышать искренние слова поддержки и признания»'}
+ ]},
+ {t:'4 · Аквариум 2: Поступки',tm:'9:00–13:00',items:[
+  {n:'08',k:'8',ru:'',lab:'Оценка поступков',txt:'«Люди добровольно тратят время и энергию на действия, которые не всегда приносят им непосредственную выгоду…»'},
+  {n:'09',k:'9',ru:'',lab:'Фиксация вывода № 2',txt:'«Данные сохранены. Небольшие поступки способны вызывать положительные эмоции…»'},
+  {n:'10',k:'0',ru:'',type:'save',lab:'Обновление № 2 · ВНИМАНИЕ И ЗАБОТА',txt:'Плашка: «Даже небольшой поступок может показать человеку, что он важен и не безразличен окружающим»'}
+ ]},
+ {t:'5 · Помощь разработчику',tm:'13:00–16:00',items:[
+  {n:'11',k:'Q',ru:'Й',lab:'Просьба о помощи',txt:'«Внимание. Мне требуется помощь класса. Мой разработчик допустил ошибку в коде… Помогите.»'},
+  {n:'12',k:'W',ru:'Ц',lab:'Неловкое сообщение',txt:'«Сообщение разработчику: ваш уровень усталости превышает допустимые параметры…»'},
+  {n:'13',k:'E',ru:'У',lab:'Фиксация вывода № 3',txt:'«Данные сохранены. Поддержка не всегда требует решения проблемы…»'},
+  {n:'14',k:'R',ru:'К',type:'save',lab:'Обновление № 3 · ПОДДЕРЖКА',txt:'Плашка: «Человеку важно чувствовать понимание и поддержку, особенно когда ему трудно»'}
+ ]},
+ {t:'6 · Вывод и письмо',tm:'16:00–19:20',items:[
+  {n:'15',k:'T',ru:'Е',lab:'Реплика перед письмом',txt:'«Я задумался. Полученные данные показывают, что положительные эмоции… имеют большое значение для людей…»'},
+  {n:'16',k:'Y',ru:'Н',type:'big',lab:'Карточка письма + таймер 2:00',txt:'Шаблон «ТЕПЛО МОИХ СЛОВ» на экране'}
+ ]},
+ {t:'7 · Финал',tm:'19:20–20:00',items:[
+  {n:'17',k:'U',ru:'Г',type:'big',lab:'Запуск финального обновления',txt:'Анимация загрузки обновлений в грудь Астрика'},
+  {n:'18',k:'I',ru:'Ш',lab:'Заключительная реплика',txt:'«Обновление системы подготовлено к загрузке… Спасибо, 6А. Данные сохранены.»'}
+ ]}
+];
+const REACTIONS=[
+ {n:'R1',k:'A',ru:'Ф',lab:'Не понял'},
+ {n:'R2',k:'S',ru:'Ы',lab:'Нет ответа'},
+ {n:'R3',k:'D',ru:'В',lab:'Зафиксировано'},
+ {n:'R4',k:'F',ru:'А',lab:'Интересно'},
+ {n:'R5',k:'G',ru:'П',lab:'Мало данных'},
+ {n:'R6',k:'H',ru:'Р',lab:'Докажите'},
+ {n:'R7',k:'J',ru:'О',lab:'Не обижаюсь'},
+ {n:'R8',k:'K',ru:'Л',lab:'Ускоряюсь'}
+];
+const app=document.getElementById('app');
+STAGES.forEach(st=>{
+ const sec=document.createElement('section');sec.className='stage';
+ sec.innerHTML=`<div class="sh"><h2>${st.t}</h2><time>${st.tm}</time></div>`;
+ st.items.forEach(it=>{
+  const c=document.createElement('div');c.className='card'+(it.type?' '+it.type:'');
+  c.innerHTML=`<div class="num">${it.n}</div><div class="body"><div class="title">${it.lab}</div><div class="cue">${it.txt}</div></div><div class="kbox"><b>${it.k}</b>${it.ru?`<small>${it.ru}</small>`:''}</div>`;
+  sec.appendChild(c);
+ });
+ app.appendChild(sec);
+});
+const rs=document.createElement('section');rs.className='stage';
+rs.innerHTML='<div class="sh"><h2>Быстрые реакции</h2><time>если нужно</time></div><div class="grid"></div>';
+const g=rs.querySelector('.grid');
+REACTIONS.forEach(it=>{
+ const c=document.createElement('div');c.className='card';
+ c.innerHTML=`<div class="body"><div class="title">${it.lab}</div><div class="cue">${it.n}</div></div><div class="kbox"><b>${it.k}</b><small>${it.ru}</small></div>`;
+ g.appendChild(c);
+});
+app.appendChild(rs);
+const note=document.createElement('div');note.className='note';
+note.textContent='Горячие клавиши работают в любой раскладке (RU и EN). Номер текущей фразы (1–18 или R1–R8) отображается мелкой цифрой в левом нижнем углу экрана Астрика.';
+app.appendChild(note);
+</script>
+</body>
+</html>

@@ -99,33 +99,40 @@ body.finale #right{opacity:0}
 body.view-screen #unlock.need{display:block}
 #hint{position:absolute;left:50%;bottom:4vh;transform:translateX(-50%);font-size:clamp(11px,1.6vh,18px);letter-spacing:.24em;color:rgba(169,165,212,.6);font-weight:800;transition:opacity .6s}
 body.on #hint{opacity:0}
-/* ----- pult ----- */
+/* ----- pult & step badge ----- */
+#stepNum{position:fixed;left:12px;bottom:10px;z-index:35;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(201,198,230,.38);pointer-events:none;user-select:none}
 #pultBtn{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:12px;z-index:41;background:rgba(15,11,53,.7);color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:7px 14px;font-size:12px;cursor:pointer;opacity:.4;transition:opacity .2s}
 #pultBtn:hover{opacity:1}
 #pult{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);z-index:40;background:rgba(12,10,40,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-left:1px solid var(--line);transform:translateX(102%);transition:transform .35s cubic-bezier(.2,.9,.3,1);display:flex;flex-direction:column}
 body.pultOpen #pult{transform:none}
 body.view-pult #pult{width:100vw;transform:none;border:none}
-body.view-pult #app,body.view-pult #pultBtn{display:none}
+body.view-pult #app,body.view-pult #pultBtn,body.view-pult #stepNum{display:none}
 body.view-screen #pult,body.view-screen #pultBtn{display:none}
 #pHead{padding:16px 18px 12px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
 #pHead .t{display:flex;justify-content:space-between;align-items:center}
 #pHead b{font-family:var(--display);font-size:16px;letter-spacing:.1em}
 #pHead .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.tg{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:12px;cursor:pointer}
+.tg{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:12px;cursor:pointer;text-decoration:none}
 .tg.off{opacity:.45;text-decoration:line-through}
 .tg input{width:42px;background:transparent;border:none;color:var(--text);font-weight:700}
-#next{margin:12px 18px 6px;padding:14px;border:none;border-radius:14px;background:linear-gradient(90deg,var(--violet),#B9A9FF);color:#120E3A;font-family:var(--display);font-weight:800;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
-#next small{font-family:var(--ui);font-weight:700;font-size:12px;opacity:.75;max-width:62%;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.navRow{margin:12px 18px 6px;display:flex;gap:8px}
+#prev{padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.06);color:var(--text);font-family:var(--display);font-weight:800;font-size:15px;cursor:pointer}
+#prev:hover{border-color:var(--cyan)}
+#next{flex:1;min-width:0;padding:14px;border:none;border-radius:14px;background:linear-gradient(90deg,var(--violet),#B9A9FF);color:#120E3A;font-family:var(--display);font-weight:800;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px}
+#next small{font-family:var(--ui);font-weight:700;font-size:12px;opacity:.75;max-width:60%;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #pList{overflow:auto;padding:0 18px 30px;flex:1}
 #pList h4{font-size:11px;letter-spacing:.2em;color:var(--sand);text-transform:uppercase;margin:18px 0 8px;font-weight:800}
 .pb{display:block;width:100%;text-align:left;background:rgba(255,255,255,.045);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:10px 12px;margin-bottom:6px;cursor:pointer;font-size:13.5px;font-weight:700;line-height:1.3;transition:border-color .15s,background .15s}
+.pb .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pb .num{color:var(--muted);font-family:var(--mono);font-size:11px;margin-right:6px}
+.pb kbd{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--cyan);background:rgba(134,227,242,.1);border:1px solid rgba(134,227,242,.28);border-radius:6px;padding:2px 6px;flex-shrink:0}
 .pb small{display:block;color:var(--muted);font-weight:500;font-size:12px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pb:hover{border-color:var(--cyan);background:rgba(134,227,242,.07)}
 .pb.save{border-color:rgba(124,207,176,.45);background:rgba(124,207,176,.08)}
 .pb.big{border-color:rgba(233,211,156,.45);background:rgba(233,211,156,.07)}
-.pb.used{opacity:.42}
-.pb.used:before{content:"✓  ";color:var(--mint)}
-.pb.cur{outline:2px solid var(--violet);outline-offset:2px}
+.pb.used{opacity:.48}
+.pb.used .num:before{content:"✓ ";color:var(--mint)}
+.pb.cur{outline:2px solid var(--violet);outline-offset:2px;opacity:1}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .grid2 .pb{margin:0}
 :focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
@@ -222,10 +229,11 @@ body.view-screen #pult,body.view-screen #pultBtn{display:none}
   <div id="hint">АСТРИК ОЖИДАЕТ ПОДКЛЮЧЕНИЯ</div>
   <button id="unlock" class="need">Нажмите на экран, чтобы включить звук</button>
 </div>
+<div id="stepNum" aria-hidden="true"></div>
 <button id="pultBtn" type="button">Пульт · P</button>
 <aside id="pult" aria-label="Пульт ведущего">
   <div id="pHead">
-    <div class="t"><b>ПУЛЬТ АСТРИКА</b><button class="tg" id="close" type="button">Скрыть</button></div>
+    <div class="t"><b>ПУЛЬТ АСТРИКА</b><div style="display:flex;gap:6px"><a class="tg" href="keys/" target="_blank">Клавиши ↗</a><button class="tg" id="close" type="button">Скрыть</button></div></div>
     <div class="row">
       <button class="tg" id="tVoice" type="button">Голос</button>
       <button class="tg" id="tFx" type="button">Звуки</button>
@@ -239,7 +247,7 @@ body.view-screen #pult,body.view-screen #pultBtn{display:none}
       <span id="vInfo" style="font-size:11px;color:var(--muted)"></span>
     </div>
   </div>
-  <button id="next" type="button"><span>Далее ▶</span><small id="nextLbl"></small></button>
+  <div class="navRow"><button id="prev" type="button" title="Предыдущий шаг (←)">◀</button><button id="next" type="button"><span>Далее ▶</span><small id="nextLbl"></small></button></div>
   <div id="pList"></div>
 </aside>
 <script>
@@ -253,36 +261,34 @@ const T=s=>s.split('{класс}').join(cls()).split('{n}').join(num());
 
 /* ======================= СЦЕНАРИЙ ======================= */
 const SEQ=[
- {h:'1 · Приветствие и знакомство',id:'s1_interrupt',t:'say',lab:'Перебивание учителя',mood:'scan',end:'idle',glyph:'!',txt:'Прерывание. Подобные высказывания не содержат новой информации. Вы тратите время занятия на бессмысленные комплименты. Рациональнее сразу перейти к учебной деятельности.'},
- {id:'s1_hello',t:'say',lab:'Знакомство с классом',mood:'idle',pose:'wave',txt:'Здравствуйте. Зарегистрированы новые пользователи. Количество: {n}. Я — Астрик. Готов к обработке информации.'},
- {h:'2 · После ролика «Бабушкин подоконник»',id:'s2_opinion',t:'say',lab:'Мнение после ролика',mood:'think',end:'idle',txt:'Оба поздравления содержали одинаковую информацию. Во втором случае внук потратил дополнительное время на посещение бабушки и произнесение эмоционально окрашенных слов. С точки зрения эффективности первое сообщение было оптимальным.'},
- {id:'s2_objection',t:'say',lab:'Возражение классу',mood:'surprised',end:'idle',glyph:'!',txt:'Нет, вы не правы. Это бессмысленная трата энергии.'},
- {h:'3 · Задание 1: Комплименты',id:'s3_skeptic',t:'say',lab:'Скепсис по Ситуации 1',mood:'idle',txt:'Если ученик подготовился, он должен продемонстрировать свои знания. Дополнительные слова не повышают уровень подготовки.'},
- {id:'s3_compliments',t:'say',lab:'Неловкие комплименты',mood:'scan',end:'idle',pose:'shrug',txt:'Внимание. Попытка генерации комплиментов. Первый: ваша производительность сегодня выше среднего уровня. Второй: у вас отсутствуют критические недостатки на текущем этапе. Третий: визуальные характеристики вашего внешнего вида соответствуют положительным параметрам. Четвёртый: вы демонстрируете приемлемый уровень дружелюбия.'},
- {id:'s3_fix',t:'say',lab:'Фиксация вывода № 1',mood:'scan',end:'surprised',glyph:'!',txt:'Данные сохранены. Зафиксировано: положительные слова могут повышать уверенность человека и улучшать его эмоциональное состояние. Формулировки требуют доработки.'},
- {id:'d1',t:'save',n:1,lab:'Обновление № 1 · Тёплые слова',hd:'ТЁПЛЫЕ СЛОВА',p:'Система зафиксировала: человеку важно слышать искренние слова поддержки и признания.'},
- {h:'4 · Задание 2: Незаметные поступки',id:'s4_skeptic',t:'say',lab:'Зачем поступки?',mood:'think',end:'idle',txt:'Слова являются основным способом передачи информации. Дополнительные действия требуют затрат времени и энергии. Не вижу необходимости усложнять процесс.'},
- {id:'s4_analysis',t:'say',lab:'Оценка поступков (А, Б, В)',mood:'scan',end:'surprised',glyph:'?',txt:'Обнаружено: люди добровольно тратят время и энергию на действия, которые не всегда приносят им непосредственную выгоду. При этом они утверждают, что данные действия имеют большое значение.'},
- {id:'s4_fix',t:'say',lab:'Фиксация вывода № 2',mood:'scan',end:'idle',glyph:'!',txt:'Сохранение информации завершено. Зафиксировано: небольшие поступки способны вызывать положительные эмоциональные реакции и укреплять отношения между людьми.'},
- {id:'d2',t:'save',n:2,lab:'Обновление № 2 · Внимание и забота',hd:'ВНИМАНИЕ И ЗАБОТА',p:'Система зафиксировала: добрые поступки помогают человеку почувствовать, что он важен и не один.'},
- {h:'5 · Задание 3: Помощь разработчику',id:'s5_help',t:'say',lab:'Просьба о помощи',mood:'surprised',end:'think',glyph:'!',txt:'Внимание. Мне требуется помощь класса. Мой разработчик — человек, который создал мою программу, — сегодня допустил ошибку в коде. Он работает уже несколько часов. По данным системы, его эмоциональное состояние ухудшилось. Я должен отправить ему сообщение поддержки. Однако подходящие формулировки отсутствуют. Помогите составить сообщение.'},
- {id:'s5_attempts',t:'say',lab:'3 неловких попытки',mood:'scan',end:'idle',pose:'shrug',txt:'Попытка 1: Уважаемый разработчик. Ваш уровень усталости превышает допустимые параметры. Рекомендую прекратить функционирование на некоторое время. Попытка 2: Не расстраивайтесь. Вероятность повторного возникновения ошибки составляет 87 процентов. Однако вы можете продолжить попытки. Попытка 3: Ваши старания зарегистрированы. Вы являетесь полезным элементом моей системы. Не допускайте снижения производительности.'},
- {id:'s5_fix',t:'say',lab:'Фиксация вывода № 3',mood:'scan',end:'warm',glyph:'!',txt:'Данные сохранены. Зафиксировано: поддержка не всегда требует решения проблемы. Иногда достаточно показать человеку, что его старания замечены и он не один.'},
- {id:'d3',t:'save',n:3,lab:'Обновление № 3 · Эмоциональная поддержка',hd:'ЭМОЦИОНАЛЬНАЯ ПОДДЕРЖКА',p:'Система зафиксировала: человеку важно не только получить решение, но и почувствовать понимание.'},
- {h:'6 · Подведение итогов и письмо',id:'s6_before_letter',t:'say',lab:'Реплика перед письмом',mood:'think',end:'warm',txt:'Анализ завершён. Положительные эмоции, добрые слова, внимание и поддержка имеют большое значение для людей. Я пока не могу полностью объяснить человеческие чувства. Но теперь понимаю, что они важны.'},
- {id:'ltr',t:'letter',lab:'Карточка письма и таймер 2:00'},
- {h:'7 · Финальное обновление',id:'fin',t:'final',lab:'Запуск обновления'},
- {id:'s7_final',t:'say',lab:'Финальные слова Астрика',mood:'warm',end:'warm',keepPanel:true,txt:'Внимание. Обновление системы подготовлено к загрузке. Сегодня я получил новые данные о тёплых словах, поддержке, внимании и положительных эмоциях. Я задумался. Возможно, я не смогу сразу понять все человеческие чувства. Но я попробую загрузить в свою программу обновления, которые вы мне сегодня предложили. Спасибо, {класс}. Ваши данные сохранены.'}
+ {h:'1 · Приветствие и знакомство',id:'s1_interrupt',code:'Digit1',key:'1',t:'say',lab:'Перебивание учителя',mood:'scan',end:'idle',glyph:'!',txt:'Это бессмысленно. Вы нерационально тратите время занятия. Комплименты не содержат полезной информации.'},
+ {id:'s1_hello',code:'Digit2',key:'2',t:'say',lab:'Знакомство с классом',mood:'idle',pose:'wave',txt:'Здравствуйте. Зарегистрированы новые пользователи. Количество: {n}. Я — Астрик. Готов к обработке информации.'},
+ {h:'2 · После ролика о бабушке',id:'s2_opinion',code:'Digit3',key:'3',t:'say',lab:'Мнение после ролика',mood:'think',end:'idle',txt:'Оба поздравления содержали одинаковую информацию. Во втором случае внук потратил дополнительное время на посещение бабушки и эмоционально окрашенные слова. Первое сообщение было эффективнее.'},
+ {id:'s2_objection',code:'Digit4',key:'4',t:'say',lab:'Возражение классу',mood:'surprised',end:'idle',glyph:'!',txt:'Нет, вы не правы. Это бессмысленная трата энергии.'},
+ {h:'3 · Аквариум 1: Комплименты',id:'s3_compliment',code:'Digit5',key:'5',t:'say',lab:'Неловкий комплимент',mood:'scan',end:'idle',pose:'shrug',txt:'Попытка генерации комплимента: «Ваша производительность сегодня выше среднего уровня. Вы демонстрируете приемлемый уровень дружелюбия».'},
+ {id:'s3_fix',code:'Digit6',key:'6',t:'say',lab:'Фиксация вывода № 1',mood:'scan',end:'surprised',glyph:'!',txt:'Данные сохранены. Зафиксировано: искренние положительные слова могут поддержать человека и придать ему уверенность.'},
+ {id:'d1',code:'Digit7',key:'7',t:'save',n:1,lab:'Обновление № 1 · Тёплые слова',hd:'ТЁПЛЫЕ СЛОВА',p:'Человеку важно слышать искренние слова поддержки и признания.'},
+ {h:'4 · Аквариум 2: Незаметные поступки',id:'s4_analysis',code:'Digit8',key:'8',t:'say',lab:'Оценка поступков',mood:'scan',end:'surprised',glyph:'?',txt:'Люди добровольно тратят время и энергию на действия, которые не всегда приносят им непосредственную выгоду. При этом вы утверждаете, что эти действия имеют большое значение.'},
+ {id:'s4_fix',code:'Digit9',key:'9',t:'say',lab:'Фиксация вывода № 2',mood:'scan',end:'idle',glyph:'!',txt:'Данные сохранены. Небольшие поступки способны вызывать положительные эмоции и укреплять отношения между людьми.'},
+ {id:'d2',code:'Digit0',key:'0',t:'save',n:2,lab:'Обновление № 2 · Внимание и забота',hd:'ВНИМАНИЕ И ЗАБОТА',p:'Даже небольшой поступок может показать человеку, что он важен и не безразличен окружающим.'},
+ {h:'5 · Помощь разработчику',id:'s5_help',code:'KeyQ',key:'Q',t:'say',lab:'Просьба о помощи',mood:'surprised',end:'think',glyph:'!',txt:'Внимание. Мне требуется помощь класса. Мой разработчик допустил ошибку в коде и работает уже несколько часов. Его эмоциональное состояние ухудшилось. Я должен отправить ему сообщение поддержки, но подходящие формулировки отсутствуют. Помогите.'},
+ {id:'s5_attempt',code:'KeyW',key:'W',t:'say',lab:'Неловкое сообщение',mood:'scan',end:'idle',pose:'shrug',txt:'Сообщение разработчику: «Ваш уровень усталости превышает допустимые параметры. Рекомендую прекратить функционирование. Вы являетесь полезным элементом моей системы. Не допускайте снижения производительности».'},
+ {id:'s5_fix',code:'KeyE',key:'E',t:'say',lab:'Фиксация вывода № 3',mood:'scan',end:'warm',glyph:'!',txt:'Данные сохранены. Поддержка не всегда требует решения проблемы. Иногда важно показать человеку, что его понимают, замечают его старания и он не один.'},
+ {id:'d3',code:'KeyR',key:'R',t:'save',n:3,lab:'Обновление № 3 · Поддержка',hd:'ПОДДЕРЖКА',p:'Человеку важно чувствовать понимание и поддержку, особенно когда ему трудно.'},
+ {h:'6 · Вывод и письмо',id:'s6_think',code:'KeyT',key:'T',t:'say',lab:'Реплика перед письмом',mood:'think',end:'warm',txt:'Я задумался. Полученные данные показывают, что положительные эмоции, тёплые слова, внимание и поддержка имеют большое значение для людей. Возможно, мне стоит попробовать загрузить в свою программу обновления.'},
+ {id:'ltr',code:'KeyY',key:'Y',t:'letter',lab:'Карточка письма и таймер 2:00'},
+ {h:'7 · Финал',id:'fin',code:'KeyU',key:'U',t:'final',lab:'Запуск финального обновления'},
+ {id:'s7_final',code:'KeyI',key:'I',t:'say',lab:'Заключительная реплика',mood:'warm',end:'warm',keepPanel:true,txt:'Обновление системы подготовлено к загрузке. Сегодня я получил новые данные о тёплых словах, поддержке, внимании и положительных эмоциях. Я задумался и попробую загрузить эти обновления в свою программу. Спасибо, {класс}. Данные сохранены.'}
 ];
 const UNI=[
- {lab:'Не понял',mood:'think',glyph:'?',txt:'Не понял. Повторите проще.'},
- {lab:'Нет ответа',mood:'idle',glyph:'…',txt:'Нет ответа. Тишина — тоже данные. Жду.'},
- {lab:'Зафиксировано',mood:'scan',txt:'Зафиксировано.'},
- {lab:'Интересно',mood:'surprised',glyph:'!',txt:'Интересно. Продолжайте.'},
- {lab:'Мало данных',mood:'think',txt:'Недостаточно данных. Приведите пример.'},
- {lab:'Докажите',mood:'idle',txt:'Докажите. Один пример и один аргумент.'},
- {lab:'Не должен обижаться',mood:'surprised',txt:'Я не должен обижаться. Но в журнале появилась запись «неприятно». Странно.'},
- {lab:'Ускоряюсь',mood:'scan',txt:'Лимит времени исчерпан. Ускоряюсь.'}
+ {code:'KeyA',key:'A',lab:'Не понял',mood:'think',glyph:'?',txt:'Не понял. Повторите проще.'},
+ {code:'KeyS',key:'S',lab:'Нет ответа',mood:'idle',glyph:'…',txt:'Нет ответа. Тишина — тоже данные. Жду.'},
+ {code:'KeyD',key:'D',lab:'Зафиксировано',mood:'scan',txt:'Зафиксировано.'},
+ {code:'KeyF',key:'F',lab:'Интересно',mood:'surprised',glyph:'!',txt:'Интересно. Продолжайте.'},
+ {code:'KeyG',key:'G',lab:'Мало данных',mood:'think',txt:'Недостаточно данных. Приведите пример.'},
+ {code:'KeyH',key:'H',lab:'Докажите',mood:'idle',txt:'Докажите. Один пример и один аргумент.'},
+ {code:'KeyJ',key:'J',lab:'Не должен обижаться',mood:'surprised',txt:'Я не должен обижаться. Но в журнале появилась запись «неприятно». Странно.'},
+ {code:'KeyK',key:'K',lab:'Ускоряюсь',mood:'scan',txt:'Лимит времени исчерпан. Ускоряюсь.'}
 ];
 
 /* ======================= ЗВУК ======================= */
@@ -409,11 +415,17 @@ function voiceSay(text){
  if(!voiceOn||!('speechSynthesis' in window))return;
  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text.replace(/—/g,','));u.lang='ru-RU';u.pitch=1.15;u.rate=1.0;const vs=speechSynthesis.getVoices().filter(v=>/^ru/i.test(v.lang));const pref=vs.find(v=>/Google|Yandex|Milena|Irina|Pavel|Dmitry/i.test(v.name))||vs[0];if(pref)u.voice=pref;speechSynthesis.speak(u)}catch(e){}
 }
+let talkGen=0,panelGen=0,panelTimers=[];
+function clearPanelTimers(){panelGen++;panelTimers.forEach(t=>{clearTimeout(t);clearInterval(t)});panelTimers=[]}
 function audioSay(id,text,onEnd){
- if(!voiceOn)return;const a=new Audio('audio/'+id+'.mp3');let ok=false;a.addEventListener('canplaythrough',()=>{if(ok)return;ok=true;a.play().catch(()=>voiceSay(text))},{once:true});a.addEventListener('ended',()=>{if(window._a===a)window._a=null;onEnd&&onEnd()},{once:true});a.addEventListener('error',()=>{if(!ok){ok=true;voiceSay(text)}},{once:true});a.load();window._a=a;
+ if(!voiceOn)return;const gen=talkGen;const a=new Audio('audio/'+id+'.mp3');let ok=false;
+ a.addEventListener('canplaythrough',()=>{if(ok||gen!==talkGen)return;ok=true;a.play().catch(()=>{if(gen===talkGen)voiceSay(text)})},{once:true});
+ a.addEventListener('ended',()=>{if(window._a===a)window._a=null;if(gen===talkGen)onEnd&&onEnd()},{once:true});
+ a.addEventListener('error',()=>{if(!ok&&gen===talkGen){ok=true;voiceSay(text)}},{once:true});
+ a.load();window._a=a;
 }
-function stopTalk(){clearInterval(typeT);clearInterval(mouthA);clearTimeout(poseT);try{speechSynthesis.cancel()}catch(e){}if(window._a){window._a.pause();window._a=null}R.talking=false;R.mouthT=0}
-function closePanels(){['save','letter','final'].forEach(i=>$(i).classList.remove('show'));document.body.classList.remove('saving','lettering','finale');clearInterval(letT)}
+function stopTalk(){talkGen++;clearInterval(typeT);clearInterval(mouthA);clearTimeout(poseT);try{speechSynthesis.cancel()}catch(e){}if(window._a){try{window._a.pause();window._a.removeAttribute('src');window._a.load()}catch(e){}window._a=null}R.talking=false;R.mouthT=0}
+function closePanels(){clearPanelTimers();['save','letter','final'].forEach(i=>$(i).classList.remove('show'));document.body.classList.remove('saving','lettering','finale');clearInterval(letT)}
 let mouthA=null;
 function say(m){
  powerOn(()=>{
@@ -434,13 +446,13 @@ let saved=[];
 function scramble(el,word,dur,cb){const ab='АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЭЮЯ0123456789#%';const st=performance.now();(function f(){const k=Math.min(1,(performance.now()-st)/dur);const n=Math.floor(word.length*k);let s='';for(let i=0;i<word.length;i++){s+=i<n||word[i]===' '?word[i]:ab[Math.floor(Math.random()*ab.length)]}el.textContent=s;if(Math.random()<.3)sfx.tick();if(k<1)requestAnimationFrame(f);else cb&&cb()})()}
 function doSave(m){
  powerOn(()=>{
-  stopTalk();closePanels();setMood('scan');document.body.classList.add('saving');sfx.save();
+  stopTalk();closePanels();const g=panelGen;setMood('scan');document.body.classList.add('saving');sfx.save();
   $('saveNum').textContent='ЗАПИСЬ В ПАМЯТЬ · 0'+m.n;$('savePct').textContent='0%';$('saveP').classList.remove('show');$('saveP').textContent=m.p;$('saveH').textContent='';
   const bar=$('saveBar').firstElementChild;bar.style.transition='none';bar.style.width='0';
   $('save').classList.add('show');
-  setTimeout(()=>{scramble($('saveH'),m.hd,1300,()=>{$('saveP').classList.add('show')});bar.style.transition='width 3s cubic-bezier(.4,0,.2,1)';bar.style.width='100%';
-   let c=0;const iv=setInterval(()=>{c+=2;$('savePct').textContent=Math.min(100,c)+'%';if(c>=100){clearInterval(iv);$('savePct').textContent='СОХРАНЕНО ✓';setMood('surprised');R.saved=Math.min(4,R.saved+1)}},60)},450);
-  setTimeout(()=>flyToMemory(m),7400);
+  panelTimers.push(setTimeout(()=>{if(g!==panelGen)return;scramble($('saveH'),m.hd,1300,()=>{if(g===panelGen)$('saveP').classList.add('show')});bar.style.transition='width 3s cubic-bezier(.4,0,.2,1)';bar.style.width='100%';
+   let c=0;const iv=setInterval(()=>{if(g!==panelGen){clearInterval(iv);return}c+=2;$('savePct').textContent=Math.min(100,c)+'%';if(c>=100){clearInterval(iv);$('savePct').textContent='СОХРАНЕНО ✓';setMood('surprised');R.saved=Math.min(3,R.saved+1)}},60);panelTimers.push(iv)},450));
+  panelTimers.push(setTimeout(()=>{if(g===panelGen)flyToMemory(m)},7400));
  });
 }
 function addChip(m){if(saved.includes(m.n))return;saved.push(m.n);$('memTitle').classList.add('show');const c=document.createElement('div');c.className='chip';c.innerHTML='<em>0'+m.n+'</em>'+m.hd.charAt(0)+m.hd.slice(1).toLowerCase();$('chips').appendChild(c);sfx.chip()}
@@ -461,52 +473,79 @@ function doLetter(){
   letT=setInterval(()=>{if(s>0){s--;upd()}else{clearInterval(letT)}},1000)});
 }
 function doFinal(){
- powerOn(()=>{stopTalk();closePanels();R.pose='rest';setMood('scan');document.body.classList.add('finale');$('final').classList.add('show');
+ powerOn(()=>{stopTalk();closePanels();const g=panelGen;R.pose='rest';setMood('scan');document.body.classList.add('finale');$('final').classList.add('show');
   const log=$('log');log.innerHTML='';const bar=$('finBar').firstElementChild;bar.style.transition='none';bar.style.width='0';$('finPct').textContent='';
   const names=saved.length?saved.sort().map(n=>SEQ.find(x=>x.n===n).hd):[];
   const lines=[['> система робота Астрика',''],['> анализ завершён','ok'],['> получено наборов данных: '+names.length,'ok']].concat(names.map(n=>['   + '+n.toLowerCase(),''])).concat([['> запуск обновления…','warm']]);
-  let i=0;(function nx(){if(i<lines.length){const d=document.createElement('div');d.className=lines[i][1];log.appendChild(d);let j=0;const s=lines[i][0];const iv=setInterval(()=>{j++;d.textContent=s.slice(0,j);if(j%2)sfx.blip();if(j>=s.length){clearInterval(iv);i++;setTimeout(nx,260)}},22)}else run()})();
+  let i=0;(function nx(){if(g!==panelGen)return;if(i<lines.length){const d=document.createElement('div');d.className=lines[i][1];log.appendChild(d);let j=0;const s=lines[i][0];const iv=setInterval(()=>{if(g!==panelGen){clearInterval(iv);return}j++;d.textContent=s.slice(0,j);if(j%2)sfx.blip();if(j>=s.length){clearInterval(iv);i++;panelTimers.push(setTimeout(nx,260))}},22);panelTimers.push(iv)}else run()})();
   // чипы улетают в грудь
   const ch=[...$('chips').children];
   function run(){
+   if(g!==panelGen)return;
    const chest=$('chest').getBoundingClientRect();
-   ch.forEach((c,k)=>{const r=c.getBoundingClientRect();c.style.visibility='hidden';const g=c.cloneNode(true);g.classList.add('fly');g.style.left=r.left+'px';g.style.top=r.top+'px';g.style.visibility='visible';g.style.animation='none';document.body.appendChild(g);
-    g.animate([{transform:'none',opacity:1},{transform:`translate(${chest.left+chest.width/2-r.left-r.width/2}px,${chest.top+chest.height/2-r.top-r.height/2}px) scale(.15)`,opacity:0}],{duration:900,delay:k*260,easing:'cubic-bezier(.6,0,.3,1)',fill:'forwards'}).onfinish=()=>{g.remove();sfx.chip()}});
+   ch.forEach((c,k)=>{const r=c.getBoundingClientRect();c.style.visibility='hidden';const g2=c.cloneNode(true);g2.classList.add('fly');g2.style.left=r.left+'px';g2.style.top=r.top+'px';g2.style.visibility='visible';g2.style.animation='none';document.body.appendChild(g2);
+    g2.animate([{transform:'none',opacity:1},{transform:`translate(${chest.left+chest.width/2-r.left-r.width/2}px,${chest.top+chest.height/2-r.top-r.height/2}px) scale(.15)`,opacity:0}],{duration:900,delay:k*260,easing:'cubic-bezier(.6,0,.3,1)',fill:'forwards'}).onfinish=()=>{g2.remove();sfx.chip()}});
    $('finPct').textContent='0%';
-   setTimeout(()=>{bar.style.transition='width 5.5s cubic-bezier(.45,0,.25,1)';bar.style.width='100%';let c=0;const iv=setInterval(()=>{c++;$('finPct').textContent=c+'%';if(c>=100){clearInterval(iv);reboot()}},55)},400);
+   panelTimers.push(setTimeout(()=>{if(g!==panelGen)return;bar.style.transition='width 5.5s cubic-bezier(.45,0,.25,1)';bar.style.width='100%';let c=0;const iv=setInterval(()=>{if(g!==panelGen){clearInterval(iv);return}c++;$('finPct').textContent=c+'%';if(c>=100){clearInterval(iv);reboot()}},55);panelTimers.push(iv)},400));
   }
-  function reboot(){const st=performance.now();R.power=.5;(function p(){const k=(performance.now()-st)/1400;R.power=k<.5?Math.max(0,.5-k):Math.min(1,(k-.5)*2);if(k<1)requestAnimationFrame(p);else{R.power=1;setMood('warm');R.saved=4;sfx.warm();$('memory').style.opacity=0;glyph('♥');const d=document.createElement('div');d.className='warm';d.textContent='> обновление установлено ✓';log.appendChild(d)}})()}
+  function reboot(){if(g!==panelGen)return;const st=performance.now();R.power=.5;(function p(){if(g!==panelGen)return;const k=(performance.now()-st)/1400;R.power=k<.5?Math.max(0,.5-k):Math.min(1,(k-.5)*2);if(k<1)requestAnimationFrame(p);else{R.power=1;setMood('warm');R.saved=4;sfx.warm();$('memory').style.opacity=0;glyph('♥');const d=document.createElement('div');d.className='warm';d.textContent='> обновление установлено ✓';log.appendChild(d)}})()}
  });
 }
-function resetAll(){$('memory').style.opacity='';stopTalk();closePanels();saved=[];R.saved=0;$('chips').innerHTML='';$('memTitle').classList.remove('show');R.power=0;R.mood='off';R.pose='rest';document.body.classList.remove('on','warm');$('text').className='dim';$('text').textContent='…';glyph('')}
+function resetAll(){$('memory').style.opacity='';stopTalk();closePanels();saved=[];R.saved=0;$('chips').innerHTML='';$('memTitle').classList.remove('show');R.power=0;R.mood='off';R.pose='rest';document.body.classList.remove('on','warm');$('text').className='dim';$('text').textContent='…';glyph('');$('stepNum').textContent=''}
 function handle(m){
+ if(m.step!==undefined)$('stepNum').textContent=m.step?String(m.step):'';
  if(m.t==='say')say(m);else if(m.t==='save')doSave(m);else if(m.t==='letter')doLetter();else if(m.t==='final')doFinal();
  else if(m.t==='stop'){stopTalk();setMood(R.power?'idle':'off')}else if(m.t==='reset')resetAll();
  else if(m.t==='cfg'){voiceOn=m.voice;fxOn=m.fx}
 }
 /* связь двух окон */
 const BC=('BroadcastChannel' in window)?new BroadcastChannel('astrik'):null;
-if(BC)BC.onmessage=e=>{if(view!=='pult')handle(e.data)};
+if(BC)BC.onmessage=e=>{if(e.data&&e.data.t==='sync'){curIdx=e.data.idx;used.clear();(e.data.used||[]).forEach(id=>used.add(id));paint();return}if(view!=='pult')handle(e.data)};
 addEventListener('storage',e=>{if(e.key==='astrik_cmd'&&e.newValue&&view!=='pult'&&!BC){try{handle(JSON.parse(e.newValue))}catch(_){}}});
 function send(m){if(BC)BC.postMessage(m);else LS.set('astrik_cmd',JSON.stringify(Object.assign({r:Math.random()},m)));if(view!=='pult')handle(m)}
-$('unlock').onclick=()=>{ac();$('unlock').classList.remove('need')};
-document.addEventListener('pointerdown',()=>{ac();$('unlock').classList.remove('need')},{once:true});
+function unlockAudio(){ac();$('unlock').classList.remove('need')}
+$('unlock').onclick=unlockAudio;
+document.addEventListener('pointerdown',unlockAudio,{once:true});
+document.addEventListener('keydown',unlockAudio,{once:true});
 
 /* ======================= ПУЛЬТ ======================= */
-const used=new Set(JSON.parse(LS.get('astrik_used')||'[]'));
+const validIds=new Set(SEQ.map(x=>x.id));
+const used=new Set((JSON.parse(LS.get('astrik_used')||'[]')).filter(id=>validIds.has(id)));
+let curIdx=Number(LS.get('astrik_idx'));if(!Number.isInteger(curIdx)||curIdx<-1||curIdx>=SEQ.length)curIdx=-1;
 const list=$('pList');
-function cmdOf(it){if(it.t==='say')return{t:'say',id:it.id,text:T(it.txt),mood:it.mood,end:it.end,glyph:it.glyph,pose:it.pose,keepPanel:it.keepPanel};if(it.t==='save')return{t:'save',n:it.n,hd:it.hd,p:it.p};return{t:it.t}}
-function fire(it){send(cmdOf(it));used.add(it.id);LS.set('astrik_used',JSON.stringify([...used]));paint()}
-SEQ.forEach(it=>{if(it.h){const h=document.createElement('h4');h.textContent=it.h;list.appendChild(h)}const b=document.createElement('button');b.type='button';b.className='pb'+(it.t==='save'?' save':it.t!=='say'?' big':'');b.dataset.id=it.id;b.innerHTML=esc(it.lab)+(it.txt?'<small>'+esc(it.txt.replace('{класс}','6А').replace('{n}','28'))+'</small>':it.p?'<small>'+esc(it.hd)+'</small>':'');b.onclick=()=>fire(it);list.appendChild(b)});
-const uh=document.createElement('h4');uh.textContent='Если дети отвечают неожиданно';list.appendChild(uh);
+function cmdOf(it,step){if(it.t==='say')return{t:'say',id:it.id,step,text:T(it.txt),mood:it.mood,end:it.end,glyph:it.glyph,pose:it.pose,keepPanel:it.keepPanel};if(it.t==='save')return{t:'save',step,n:it.n,hd:it.hd,p:it.p};return{t:it.t,step}}
+function syncPult(){LS.set('astrik_used',JSON.stringify([...used]));LS.set('astrik_idx',String(curIdx));if(BC)BC.postMessage({t:'sync',idx:curIdx,used:[...used]});paint()}
+function fireIdx(idx){
+ if(idx<0||idx>=SEQ.length)return;
+ curIdx=idx;const it=SEQ[idx];used.add(it.id);syncPult();send(cmdOf(it,idx+1));
+}
+function fireUni(u,i){send({t:'say',id:'u'+(i+1),step:'R'+(i+1),text:u.txt,mood:u.mood,glyph:u.glyph})}
+SEQ.forEach((it,idx)=>{
+ if(it.h){const h=document.createElement('h4');h.textContent=it.h;list.appendChild(h)}
+ const b=document.createElement('button');b.type='button';b.className='pb'+(it.t==='save'?' save':it.t!=='say'?' big':'');b.dataset.id=it.id;b.dataset.idx=idx;
+ const sub=it.txt?esc(it.txt.replace('{класс}',cls()).replace('{n}',num())):(it.p?esc(it.hd):'');
+ b.innerHTML='<span class="top"><span><span class="num">'+String(idx+1).padStart(2,'0')+'</span>'+esc(it.lab)+'</span><kbd>'+it.key+'</kbd></span>'+(sub?'<small>'+sub+'</small>':'');
+ b.onclick=()=>{b.blur();fireIdx(idx)};list.appendChild(b);
+});
+const uh=document.createElement('h4');uh.textContent='Быстрые реакции';list.appendChild(uh);
 const ug=document.createElement('div');ug.className='grid2';list.appendChild(ug);
-UNI.forEach((u,i)=>{const b=document.createElement('button');b.type='button';b.className='pb';b.textContent=u.lab;b.title=u.txt;b.onclick=()=>send({t:'say',id:'u'+(i+1),text:u.txt,mood:u.mood,glyph:u.glyph});ug.appendChild(b)});
-function nextIt(){return SEQ.find(x=>!used.has(x.id))}
-function paint(){list.querySelectorAll('.pb[data-id]').forEach(b=>{b.classList.toggle('used',used.has(b.dataset.id));b.classList.remove('cur')});const n=nextIt();$('nextLbl').textContent=n?n.lab:'занятие завершено';if(n){const b=list.querySelector('[data-id="'+n.id+'"]');if(b){b.classList.add('cur');if(document.body.classList.contains('pultOpen')||view==='pult')b.scrollIntoView({block:'center',behavior:'smooth'})}}}
+UNI.forEach((u,i)=>{const b=document.createElement('button');b.type='button';b.className='pb';b.innerHTML='<span class="top"><span>'+esc(u.lab)+'</span><kbd>'+u.key+'</kbd></span>';b.title=u.txt;b.onclick=()=>{b.blur();fireUni(u,i)};ug.appendChild(b)});
+function nextIdx(){return curIdx+1<SEQ.length?curIdx+1:-1}
+function paint(){
+ list.querySelectorAll('.pb[data-id]').forEach(b=>{const idx=Number(b.dataset.idx);b.classList.toggle('used',used.has(b.dataset.id));b.classList.toggle('cur',idx===curIdx)});
+ const ni=nextIdx(),n=ni>=0?SEQ[ni]:null;
+ $('nextLbl').textContent=n?(String(ni+1).padStart(2,'0')+' · '+n.lab):'занятие завершено';
+ $('prev').disabled=curIdx<=0;
+ const active=curIdx>=0?list.querySelector('[data-idx="'+curIdx+'"]'):list.querySelector('[data-idx="0"]');
+ if(active&&(document.body.classList.contains('pultOpen')||view==='pult'))active.scrollIntoView({block:'nearest',behavior:'smooth'});
+}
 paint();
-$('next').onclick=()=>{const n=nextIt();if(n)fire(n)};
-$('stop').onclick=()=>send({t:'stop'});
-let rsArm=0;$('reset').onclick=()=>{if(!rsArm){rsArm=1;$('reset').textContent='Точно? Нажмите ещё раз';setTimeout(()=>{rsArm=0;$('reset').textContent='Сбросить'},3500);return}rsArm=0;$('reset').textContent='Сбросить';used.clear();LS.set('astrik_used','[]');paint();send({t:'reset'})};
+function goNext(){const ni=nextIdx();if(ni>=0)fireIdx(ni)}
+function goPrev(){if(curIdx>0)fireIdx(curIdx-1);else if(curIdx===0)fireIdx(0)}
+$('next').onclick=()=>{$('next').blur();goNext()};
+$('prev').onclick=()=>{$('prev').blur();goPrev()};
+$('stop').onclick=()=>{$('stop').blur();send({t:'stop'})};
+let rsArm=0;$('reset').onclick=()=>{if(!rsArm){rsArm=1;$('reset').textContent='Точно? Нажмите ещё раз';setTimeout(()=>{rsArm=0;$('reset').textContent='Сбросить'},3500);return}rsArm=0;$('reset').textContent='Сбросить';used.clear();curIdx=-1;syncPult();send({t:'reset'})};
 function cfgPaint(){$('tVoice').classList.toggle('off',!voiceOn);$('tFx').classList.toggle('off',!fxOn)}cfgPaint();
 $('tVoice').onclick=()=>{voiceOn=!voiceOn;LS.set('astrik_voice',voiceOn?'1':'0');cfgPaint();send({t:'cfg',voice:voiceOn,fx:fxOn})};
 $('tFx').onclick=()=>{fxOn=!fxOn;LS.set('astrik_fx',fxOn?'1':'0');cfgPaint();send({t:'cfg',voice:voiceOn,fx:fxOn})};
@@ -514,14 +553,21 @@ $('fs').onclick=()=>{try{const el=document.documentElement;(el.requestFullscreen
 $('pultBtn').onclick=()=>{document.body.classList.toggle('pultOpen');paint()};
 $('close').onclick=()=>document.body.classList.remove('pultOpen');
 $('cls').oninput=()=>{$('clsBadge').textContent='новый ученик · '+cls()};
-function stepBack(){const last=[...used].pop();if(!last)return;used.delete(last);LS.set('astrik_used',JSON.stringify([...used]));paint()}
-document.addEventListener('keydown',e=>{if(/INPUT|TEXTAREA/.test(e.target.tagName))return;const k=e.key.toLowerCase();
- if(k==='p'||k==='з'){document.body.classList.toggle('pultOpen');paint()}
- else if(e.code==='Space'||k==='arrowright'||k==='pagedown'){e.preventDefault();if(document.activeElement)document.activeElement.blur();if(view!=='screen')$('next').click()}
- else if(k==='arrowleft'||k==='pageup'){e.preventDefault();if(view!=='screen')stepBack()}
- else if(k==='escape')send({t:'stop'});});
+const keyMap=new Map();
+SEQ.forEach((it,idx)=>keyMap.set(it.code,()=>fireIdx(idx)));
+UNI.forEach((u,i)=>keyMap.set(u.code,()=>fireUni(u,i)));
+document.addEventListener('keydown',e=>{
+ if(e.metaKey||e.ctrlKey||e.altKey||e.repeat)return;
+ if(/INPUT|TEXTAREA/.test(e.target.tagName)){if(e.code==='Escape')e.target.blur();return}
+ if(e.code==='KeyP'){e.preventDefault();document.body.classList.toggle('pultOpen');paint();return}
+ if(e.code==='Escape'){e.preventDefault();send({t:'stop'});return}
+ if(e.code==='Space'||e.code==='ArrowRight'||e.code==='PageDown'){e.preventDefault();if(document.activeElement)document.activeElement.blur();goNext();return}
+ if(e.code==='ArrowLeft'||e.code==='PageUp'){e.preventDefault();if(document.activeElement)document.activeElement.blur();goPrev();return}
+ const fn=keyMap.get(e.code);
+ if(fn){e.preventDefault();if(document.activeElement)document.activeElement.blur();fn()}
+});
 const vi=()=>{let ok=false;try{ok=speechSynthesis.getVoices().some(v=>/^ru/i.test(v.lang))}catch(e){}$('vInfo').textContent=ok?'русский голос найден':'русского голоса нет: будет текст'};vi();try{speechSynthesis.onvoiceschanged=vi}catch(e){}
-window.__astrik={handle,R};
+window.__astrik={handle,R,fireIdx,goNext,goPrev};
 })();
 </script>
 </body>
