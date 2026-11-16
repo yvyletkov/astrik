@@ -277,7 +277,7 @@ const SEQ=[
  {id:'s5_attempt',code:'Digit0',key:'0',t:'say',lab:'Неловкое сообщение',mood:'scan',end:'idle',pose:'shrug',txt:'Сообщение разработчику. Ваш уровень усталости превышает допустимые параметры. Рекомендую временно прекратить работу. Сердечко'},
  {id:'d3',code:'KeyQ',key:'Q',t:'save',n:3,lab:'Обновление № 3 · Поддержка',hd:'ПОДДЕРЖКА',p:'Человеку важно чувствовать понимание и поддержку, особенно когда ему трудно.'},
  {h:'6 · Письмо',id:'ltr',code:'KeyW',key:'W',t:'letter',lab:'Карточка письма «Тепло моих слов»'},
- {h:'7 · Финал',id:'s7_final',code:'KeyE',key:'E',t:'say',lab:'Прощание с классом',mood:'warm',end:'warm',pose:'wave',txt:'Спасибо вам, ребята! Сегодня вы научили меня самому главному — тому, что нельзя измерить приборами и формулами. Я понял, как много значат добрые слова, забота и искренняя поддержка. Берегите друг друга и дарите тепло тем, кто рядом. До свидания, друзья!'}
+ {h:'7 · Финал',id:'s7_final',code:'KeyE',key:'E',t:'say',lab:'Прощание с классом',mood:'warm',end:'warm',pose:'wave',txt:'Спасибо вам, ребята! Берегите друг друга и дарите тепло тем, кто рядом. До свидания, друзья!'}
 ];
 const UNI=[
  {code:'KeyA',key:'A',lab:'Не понял',mood:'think',glyph:'?',txt:'Не понял. Повторите проще.'},
@@ -417,7 +417,7 @@ function voiceSay(text){
 let talkGen=0,panelGen=0,panelTimers=[];
 const AUDIO_CACHE={};
 function preloadAudio(id){if(!AUDIO_CACHE[id]){const a=new Audio('audio/'+id+'.mp3');a.preload='auto';try{a.load()}catch(e){}AUDIO_CACHE[id]=a}return AUDIO_CACHE[id]}
-SEQ.forEach(x=>{if(x.t==='say')preloadAudio(x.id)});
+SEQ.forEach(x=>{if(x.t==='say'||x.t==='letter')preloadAudio(x.id)});
 UNI.forEach((u,i)=>preloadAudio('u'+(i+1)));
 function clearPanelTimers(){panelGen++;panelTimers.forEach(t=>{clearTimeout(t);clearInterval(t)});panelTimers=[]}
 function audioSay(id,text,onStart,onEnd){
@@ -484,7 +484,16 @@ function flyToMemory(m){
  setTimeout(()=>{if(ghost.isConnected){ghost.remove();addChip(m)}},900);
 }
 function doLetter(){
- powerOn(()=>{stopTalk();closePanels();setMood('warm');R.pose='rest';R.saved=4;sfx.warm();glyph('♥',true);document.body.classList.add('lettering');$('letter').classList.add('show')});
+ powerOn(()=>{
+  stopTalk();closePanels();setMood('warm');R.pose='rest';R.saved=4;sfx.warm();glyph('♥',true);
+  document.body.classList.add('lettering');$('letter').classList.add('show');
+  if(!voiceOn)return;
+  const gen=talkGen,txt='Тепло моих слов. '+cls()+' классу! Я хочу сказать вам спасибо за помощь на занятии. Мне особенно приятно, когда вы помогали мне понять человеческую доброту. Я очень ценю в вас то, что вы всегда приходите на помощь друг другу. Ваш Астрик!';
+  audioSay('ltr',txt,()=>{
+   if(gen!==talkGen)return;
+   if(window._a){R.talking=true;mouthA=setInterval(()=>{R.mouthT=.25+Math.random()*.65},90)}
+  },()=>{clearInterval(mouthA);R.talking=false;R.mouthT=0;setMood('warm')});
+ });
 }
 function doFinal(){
  powerOn(()=>{stopTalk();closePanels();const g=panelGen;R.pose='rest';setMood('scan');document.body.classList.add('finale');$('final').classList.add('show');
