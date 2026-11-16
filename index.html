@@ -28,12 +28,14 @@ body.on #brand{opacity:1;transform:none}
 #brand i{width:1.2vh;height:1.2vh;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint);animation:live 2s infinite}
 @keyframes live{50%{opacity:.35}}
 /* ----- robot ----- */
-#stage{position:absolute;left:2vw;bottom:0;height:94vh;width:min(48vw,82vh)}
+#stage{position:absolute;left:2vw;bottom:0;height:94vh;width:min(48vw,82vh);opacity:0;transform:translateY(24px) scale(.96);pointer-events:none;transition:opacity .7s ease,transform .7s cubic-bezier(.2,1.1,.3,1)}
+body.on #stage{opacity:1;transform:none;pointer-events:auto}
 #robot{width:100%;height:100%;overflow:visible;cursor:pointer;filter:drop-shadow(0 3vh 5vh rgba(4,3,20,.55))}
 #spot{position:absolute;left:50%;top:44%;width:120%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(134,227,242,.16),rgba(134,227,242,0));transition:background 1s}
 body.warm #spot{background:radial-gradient(closest-side,rgba(242,183,155,.25),rgba(242,183,155,0))}
 body.saving #spot{background:radial-gradient(closest-side,rgba(124,207,176,.24),rgba(124,207,176,0))}
 #glyph{font-family:var(--display);font-weight:800;fill:var(--sand);font-size:54px;opacity:0;transition:opacity .3s}
+body.warm #glyph{fill:#FF5A7A}
 #glyph.show{opacity:1;animation:glyphUp 2.4s ease-in-out infinite}
 @keyframes glyphUp{50%{transform:translateY(-10px)}}
 /* ----- right column ----- */
@@ -75,12 +77,9 @@ body.lettering #right{opacity:0}
 #paper{width:100%;background:#FBF8F1;color:#25213F;border-radius:22px;padding:5.4vh 3.4vw 4vh;box-shadow:0 40px 90px rgba(4,3,20,.6);position:relative;transform:rotate(-1.2deg)}
 #paper:after{content:"";position:absolute;inset:0;border-radius:22px;background:repeating-linear-gradient(transparent 0 calc(6.2vh - 2px),rgba(37,33,63,.07) calc(6.2vh - 2px) 6.2vh);pointer-events:none}
 #paper small{font-size:clamp(11px,1.5vh,17px);letter-spacing:.22em;font-weight:800;color:#8C82B8;text-transform:uppercase}
-#paper h2{font-family:var(--display);font-weight:800;font-size:clamp(26px,5vh,64px);margin:1.2vh 0 1.8vh;color:#2B2560}
-#paper p{font-size:clamp(16px,2.7vh,34px);font-weight:700;padding:1.1vh 0;border-bottom:2px dashed rgba(37,33,63,.22);color:#3a3466}
-#paper .hint{border:none;font-weight:600;font-size:clamp(13px,2vh,24px);color:#7A74A6;padding-top:2.4vh}
-#ring{position:absolute;right:-3vh;top:-4vh;width:15vh;height:15vh;transform:rotate(1.2deg)}
-#ring circle{fill:none;stroke-width:9}
-#ring text{font-family:var(--display);font-weight:800;font-size:24px;fill:#2B2560}
+#paper h2{font-family:var(--display);font-weight:800;font-size:clamp(24px,4.5vh,56px);margin:1.2vh 0 1.8vh;color:#2B2560}
+#paper p{font-size:clamp(15px,2.45vh,31px);font-weight:700;padding:1.1vh 0;border-bottom:2px dashed rgba(37,33,63,.22);color:#3a3466}
+#paper .hint{border:none;font-family:var(--display);font-weight:800;font-size:clamp(18px,3vh,36px);color:#2B2560;padding-top:2.4vh;text-align:right}
 /* ----- final ----- */
 #final{position:absolute;right:max(3vw,16px);top:10vh;bottom:8vh;width:min(46vw,940px);display:flex;flex-direction:column;justify-content:center;opacity:0;pointer-events:none;transition:opacity .6s}
 #final.show{opacity:1}
@@ -97,8 +96,11 @@ body.finale #right{opacity:0}
 /* ----- start/unlock ----- */
 #unlock{position:absolute;left:50%;top:3vh;transform:translateX(-50%);font-size:13px;color:var(--muted);background:rgba(20,16,64,.8);border:1px solid var(--line);padding:8px 16px;border-radius:99px;display:none;z-index:15}
 body.view-screen #unlock.need{display:block}
-#hint{position:absolute;left:50%;bottom:4vh;transform:translateX(-50%);font-size:clamp(11px,1.6vh,18px);letter-spacing:.24em;color:rgba(169,165,212,.6);font-weight:800;transition:opacity .6s}
-body.on #hint{opacity:0}
+#welcome{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4vh 6vw;z-index:10;transition:opacity .6s ease,transform .6s ease}
+body.on #welcome{opacity:0;pointer-events:none;transform:scale(.96)}
+#welcome .wBadge{font-family:var(--mono);font-size:clamp(12px,1.8vh,20px);letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);background:rgba(134,227,242,.1);border:1px solid rgba(134,227,242,.3);padding:.8vh 1.6vw;border-radius:99px;margin-bottom:2.8vh;font-weight:700}
+#welcome h1{font-family:var(--display);font-weight:800;font-size:clamp(32px,6.8vh,88px);line-height:1.12;letter-spacing:.01em;background:linear-gradient(135deg,#FFFFFF 30%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+#welcome p{margin-top:2vh;font-size:clamp(16px,2.6vh,32px);color:var(--muted);font-weight:600}
 /* ----- pult & step badge ----- */
 #stepNum{position:fixed;left:12px;bottom:10px;z-index:35;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(201,198,230,.18);pointer-events:none;user-select:none}
 #pult{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);z-index:40;background:rgba(12,10,40,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-left:1px solid var(--line);transform:translateX(102%);transition:transform .35s cubic-bezier(.2,.9,.3,1);display:flex;flex-direction:column}
@@ -135,7 +137,8 @@ body.view-screen #pult{display:none}
 .grid2 .pb{margin:0}
 :focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 @media (max-width:760px){
-  #stage{left:50%;transform:translateX(-50%);height:52vh;width:min(92vw,46vh);bottom:auto;top:8vh}
+  #stage{left:50%;transform:translateX(-50%) translateY(24px) scale(.96);height:52vh;width:min(92vw,46vh);bottom:auto;top:8vh}
+  body.on #stage{transform:translateX(-50%)}
   #right,#save,#final,#letter{left:16px;right:16px;width:auto;top:58vh;bottom:2vh}
   #bubble:before{display:none}
 }
@@ -222,9 +225,13 @@ body.view-screen #pult{display:none}
     <div id="bubble"><div id="who"><span>АСТРИК</span><div id="bars"><i></i><i></i><i></i><i></i><i></i></div></div><div id="text" class="dim">…</div></div>
   </div>
   <div id="save"><div id="saveCard"><div id="saveK"><span id="saveNum">ЗАПИСЬ В ПАМЯТЬ · 01</span><span id="savePct">0%</span></div><div id="saveH"></div><div id="saveP"></div><div id="saveBar"><b></b></div></div></div>
-  <div id="letter"><div id="paper"><svg id="ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="56" fill="#FBF8F1" stroke="none"/><circle cx="60" cy="60" r="50" stroke="rgba(43,37,96,.12)"/><circle id="ringArc" cx="60" cy="60" r="50" stroke="#9A8DE8" stroke-linecap="round" transform="rotate(-90 60 60)" stroke-dasharray="314" stroke-dashoffset="0"/><text id="ringT" x="60" y="70" text-anchor="middle">2:00</text></svg><small>Письмо благодарности близкому человеку</small><h2>Тепло моих слов</h2><p>Дорогой(ая) __________!</p><p>Я хочу сказать тебе спасибо за…</p><p>Мне особенно приятно, когда ты…</p><p>Я очень ценю в тебе…</p><p>Я хочу, чтобы ты знал(а)…</p><p class="hint">Спасибо, что ты есть! · С любовью, __________</p></div></div>
+  <div id="letter"><div id="paper"><h2>ТЕПЛО МОИХ СЛОВ</h2><p><span id="ltrCls">6Б</span> классу!</p><p>Я хочу сказать вам спасибо за помощь на занятии</p><p>Мне особенно приятно, когда вы помогали мне понять человеческую доброту</p><p>Я очень ценю в вас то, что вы всегда приходите на помощь друг другу</p><p class="hint">Ваш Астрик!</p></div></div>
   <div id="final"><div id="term"><div id="termHead"><i></i><i></i><i></i></div><div id="log"></div><div id="finBar"><b></b></div><div id="finPct">0%</div></div></div>
-  <div id="hint">АСТРИК ОЖИДАЕТ ПОДКЛЮЧЕНИЯ</div>
+  <div id="welcome">
+    <div class="wBadge">КЛАССНЫЙ ЧАС · <span id="wCls">6Б</span> КЛАСС</div>
+    <h1>Здравствуйте, ребята!</h1>
+    <p>Рады видеть вас на занятии</p>
+  </div>
   <button id="unlock" class="need">Нажмите на экран, чтобы включить звук</button>
 </div>
 <div id="stepNum" aria-hidden="true"></div>
@@ -263,19 +270,14 @@ const SEQ=[
  {h:'2 · После ролика о бабушке',id:'s2_opinion',code:'Digit3',key:'3',t:'say',lab:'Мнение после ролика',mood:'think',end:'idle',txt:'Оба поздравления содержали одинаковую информацию. Во втором случае внук потратил дополнительное время на посещение бабушки и эмоционально окрашенные слова. Первое сообщение было эффективнее.'},
  {id:'s2_objection',code:'Digit4',key:'4',t:'say',lab:'Возражение классу',mood:'surprised',end:'idle',glyph:'!',txt:'Нет, вы не правы. Это бессмысленная трата энергии.'},
  {h:'3 · Аквариум 1: Комплименты',id:'s3_compliment',code:'Digit5',key:'5',t:'say',lab:'Неловкий комплимент',mood:'scan',end:'idle',pose:'shrug',txt:'Попытка генерации комплимента: «Ваша производительность сегодня выше среднего уровня. Вы демонстрируете приемлемый уровень дружелюбия».'},
- {id:'s3_fix',code:'Digit6',key:'6',t:'say',lab:'Фиксация вывода № 1',mood:'scan',end:'surprised',glyph:'!',txt:'Данные сохранены. Зафиксировано: искренние положительные слова могут поддержать человека и придать ему уверенность.'},
- {id:'d1',code:'Digit7',key:'7',t:'save',n:1,lab:'Обновление № 1 · Тёплые слова',hd:'ТЁПЛЫЕ СЛОВА',p:'Человеку важно слышать искренние слова поддержки и признания.'},
- {h:'4 · Аквариум 2: Незаметные поступки',id:'s4_analysis',code:'Digit8',key:'8',t:'say',lab:'Оценка поступков',mood:'scan',end:'surprised',glyph:'?',txt:'Люди добровольно тратят время и энергию на действия, которые не всегда приносят им непосредственную выгоду. При этом вы утверждаете, что эти действия имеют большое значение.'},
- {id:'s4_fix',code:'Digit9',key:'9',t:'say',lab:'Фиксация вывода № 2',mood:'scan',end:'idle',glyph:'!',txt:'Данные сохранены. Небольшие поступки способны вызывать положительные эмоции и укреплять отношения между людьми.'},
- {id:'d2',code:'Digit0',key:'0',t:'save',n:2,lab:'Обновление № 2 · Внимание и забота',hd:'ВНИМАНИЕ И ЗАБОТА',p:'Даже небольшой поступок может показать человеку, что он важен и не безразличен окружающим.'},
- {h:'5 · Помощь разработчику',id:'s5_help',code:'KeyQ',key:'Q',t:'say',lab:'Просьба о помощи',mood:'surprised',end:'think',glyph:'!',txt:'Внимание. Мне требуется помощь класса. Мой разработчик допустил ошибку в коде и работает уже несколько часов. Его эмоциональное состояние ухудшилось. Я должен отправить ему сообщение поддержки, но подходящие формулировки отсутствуют. Помогите.'},
- {id:'s5_attempt',code:'KeyW',key:'W',t:'say',lab:'Неловкое сообщение',mood:'scan',end:'idle',pose:'shrug',txt:'Сообщение разработчику: «Ваш уровень усталости превышает допустимые параметры. Рекомендую прекратить функционирование. Вы являетесь полезным элементом моей системы. Не допускайте снижения производительности».'},
- {id:'s5_fix',code:'KeyE',key:'E',t:'say',lab:'Фиксация вывода № 3',mood:'scan',end:'warm',glyph:'!',txt:'Данные сохранены. Поддержка не всегда требует решения проблемы. Иногда важно показать человеку, что его понимают, замечают его старания и он не один.'},
- {id:'d3',code:'KeyR',key:'R',t:'save',n:3,lab:'Обновление № 3 · Поддержка',hd:'ПОДДЕРЖКА',p:'Человеку важно чувствовать понимание и поддержку, особенно когда ему трудно.'},
- {h:'6 · Вывод и письмо',id:'s6_think',code:'KeyT',key:'T',t:'say',lab:'Реплика перед письмом',mood:'think',end:'warm',txt:'Я задумался. Полученные данные показывают, что положительные эмоции, тёплые слова, внимание и поддержка имеют большое значение для людей. Возможно, мне стоит попробовать загрузить в свою программу обновления.'},
- {id:'ltr',code:'KeyY',key:'Y',t:'letter',lab:'Карточка письма и таймер 2:00'},
- {h:'7 · Финал',id:'fin',code:'KeyU',key:'U',t:'final',lab:'Запуск финального обновления'},
- {id:'s7_final',code:'KeyI',key:'I',t:'say',lab:'Заключительная реплика',mood:'warm',end:'warm',keepPanel:true,txt:'Обновление системы подготовлено к загрузке. Сегодня я получил новые данные о тёплых словах, поддержке, внимании и положительных эмоциях. Я задумался и попробую загрузить эти обновления в свою программу. Спасибо, {класс}. Данные сохранены.'}
+ {id:'d1',code:'Digit6',key:'6',t:'save',n:1,lab:'Обновление № 1 · Тёплые слова',hd:'ТЁПЛЫЕ СЛОВА',p:'Человеку важно слышать искренние слова поддержки и признания.'},
+ {h:'4 · Аквариум 2: Незаметные поступки',id:'s4_analysis',code:'Digit7',key:'7',t:'say',lab:'Оценка поступков',mood:'scan',end:'surprised',glyph:'!',txt:'Данные обработаны. Я приятно удивлен вашими способностями дарить добро окружающим.'},
+ {id:'d2',code:'Digit8',key:'8',t:'save',n:2,lab:'Обновление № 2 · Внимание и забота',hd:'ВНИМАНИЕ И ЗАБОТА',p:'Даже небольшой поступок может показать человеку, что он важен и не безразличен окружающим.'},
+ {h:'5 · Помощь разработчику',id:'s5_help',code:'Digit9',key:'9',t:'say',lab:'Просьба о помощи',mood:'surprised',end:'think',glyph:'!',txt:'Внимание. Мне требуется помощь класса. Мой разработчик допустил ошибку в коде и работает уже несколько часов. Его эмоциональное состояние ухудшилось. Я должен отправить ему сообщение поддержки, но подходящие формулировки отсутствуют. Помогите.'},
+ {id:'s5_attempt',code:'Digit0',key:'0',t:'say',lab:'Неловкое сообщение',mood:'scan',end:'idle',pose:'shrug',txt:'Сообщение разработчику. Ваш уровень усталости превышает допустимые параметры. Рекомендую временно прекратить работу. Сердечко'},
+ {id:'d3',code:'KeyQ',key:'Q',t:'save',n:3,lab:'Обновление № 3 · Поддержка',hd:'ПОДДЕРЖКА',p:'Человеку важно чувствовать понимание и поддержку, особенно когда ему трудно.'},
+ {h:'6 · Письмо',id:'ltr',code:'KeyW',key:'W',t:'letter',lab:'Карточка письма «Тепло моих слов»'},
+ {h:'7 · Финал',id:'s7_final',code:'KeyE',key:'E',t:'say',lab:'Прощание с классом',mood:'warm',end:'warm',pose:'wave',txt:'Спасибо вам, ребята! Сегодня вы научили меня самому главному — тому, что нельзя измерить приборами и формулами. Я понял, как много значат добрые слова, забота и искренняя поддержка. Берегите друг друга и дарите тепло тем, кто рядом. До свидания, друзья!'}
 ];
 const UNI=[
  {code:'KeyA',key:'A',lab:'Не понял',mood:'think',glyph:'?',txt:'Не понял. Повторите проще.'},
@@ -309,8 +311,8 @@ function drawArm(g,sx,sy,a1,a2){const r=Math.PI/180,ex=sx+70*Math.cos(a1*r),ey=s
  const s=g.querySelector('.sh'),e=g.querySelector('.el'),h=g.querySelector('.hd');s.setAttribute('cx',sx);s.setAttribute('cy',sy);e.setAttribute('cx',ex);e.setAttribute('cy',ey);h.setAttribute('cx',hx);h.setAttribute('cy',hy)}
 const eyeL=$('eyeL'),eyeR=$('eyeR'),elL=eyeL.querySelector('ellipse'),elR=eyeR.querySelector('ellipse'),arcL=eyeL.querySelector('path'),arcR=eyeR.querySelector('path');
 let glyphTimer=null;
-function glyph(ch){const g=$('glyph');clearTimeout(glyphTimer);if(!ch){g.classList.remove('show');return}g.textContent=ch;g.classList.add('show');glyphTimer=setTimeout(()=>g.classList.remove('show'),3800)}
-function setMood(m){R.mood=m;if(m==='surprised'){R.surprise=1}R.pose=m==='think'?'think':(R.pose==='write'?'write':'rest');document.body.classList.toggle('warm',m==='warm')}
+function glyph(ch,keep){const g=$('glyph');clearTimeout(glyphTimer);if(!ch){g.classList.remove('show');return}g.textContent=ch;g.classList.add('show');if(!keep)glyphTimer=setTimeout(()=>g.classList.remove('show'),3800)}
+function setMood(m){const prev=R.mood;R.mood=m;if(m==='surprised'){R.surprise=1}R.pose=m==='think'?'think':(R.pose==='write'?'write':'rest');document.body.classList.toggle('warm',m==='warm');if(m==='warm')glyph('♥',true);else if(prev==='warm'&&$('glyph').textContent==='♥')glyph('')}
 const lerp=(a,b,k)=>a+(b-a)*k;
 let last=performance.now(),tt=0;
 function frame(now){
@@ -369,7 +371,7 @@ function frame(now){
  $('mouth').setAttribute('opacity',pw);
  // щёки
  R.warm=lerp(R.warm,R.mood==='warm'?1:0,dt*1.5);
- $('cheekL').setAttribute('opacity',(R.warm*.55).toFixed(2));$('cheekR').setAttribute('opacity',(R.warm*.55).toFixed(2));
+ $('cheekL').setAttribute('opacity',(R.warm*.75).toFixed(2));$('cheekR').setAttribute('opacity',(R.warm*.75).toFixed(2));
  // сканирование
  if(R.mood==='scan'){R.scanY=(R.scanY+dt*160)%140;$('scan').setAttribute('y',176+R.scanY);$('scan').setAttribute('opacity',.35)}else $('scan').setAttribute('opacity',0);
  // визор при выключении
@@ -434,7 +436,7 @@ function audioSay(id,text,onStart,onEnd){
  else{clearTimeout(timer);begin()}
 }
 function stopTalk(){talkGen++;clearInterval(typeT);clearInterval(mouthA);clearTimeout(poseT);try{speechSynthesis.cancel()}catch(e){}if(window._a){try{window._a.onended=null;window._a.onerror=null;window._a.pause();window._a.currentTime=0}catch(e){}window._a=null}R.talking=false;R.mouthT=0}
-function closePanels(){clearPanelTimers();['save','letter','final'].forEach(i=>$(i).classList.remove('show'));document.body.classList.remove('saving','lettering','finale');clearInterval(letT)}
+function closePanels(){clearPanelTimers();['save','letter','final'].forEach(i=>$(i).classList.remove('show'));document.body.classList.remove('saving','lettering','finale')}
 let mouthA=null;
 function say(m){
  powerOn(()=>{
@@ -448,14 +450,15 @@ function say(m){
    const durMs=(window._a&&isFinite(window._a.duration)&&window._a.duration>0)?window._a.duration*1000:Math.min(8000,text.length*36);
    const spd=Math.max(18,Math.min(46,Math.round((durMs*.85)/text.length)));
    typeT=setInterval(()=>{if(gen!==talkGen){clearInterval(typeT);return}i++;const ch=text[i-1]||'';R.mouthT=/[аеёиоуыэюяaeiou]/i.test(ch)?1:(/[\s.,:;!?—«»]/.test(ch)?0:.4);if(i%3===0&&!window._a)sfx.blip();
-    el.innerHTML=esc(text.slice(0,i))+'<span class="c"></span>';
-    if(i>=text.length){clearInterval(typeT);el.innerHTML=esc(text);const playing=window._a&&!window._a.paused&&!window._a.ended;if(playing){mouthA=setInterval(()=>{R.mouthT=.25+Math.random()*.65},90)}else{R.talking=false;R.mouthT=0;setTimeout(()=>{if(!R.talking)setMood(m.end||m.mood||'idle')},700)}}},spd);
+    el.innerHTML=fmtText(text,text.slice(0,i))+'<span class="c"></span>';
+    if(i>=text.length){clearInterval(typeT);el.innerHTML=fmtText(text,text);const playing=window._a&&!window._a.paused&&!window._a.ended;if(playing){mouthA=setInterval(()=>{R.mouthT=.25+Math.random()*.65},90)}else{R.talking=false;R.mouthT=0;setTimeout(()=>{if(!R.talking)setMood(m.end||m.mood||'idle')},700)}}},spd);
   };
   if(m.silent)startTyping();
   else audioSay(m.id,text,startTyping,()=>{clearInterval(mouthA);R.talking=false;R.mouthT=0;setMood(m.end||m.mood||'idle')});
  });
 }
 const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function fmtText(full,slice){const w='Сердечко',idx=full.indexOf(w);if(idx<0||slice.length<=idx)return esc(slice);const end=idx+w.length;return esc(slice.slice(0,idx))+'<span style="color:#FF4D6D">'+esc(slice.slice(idx,end))+'</span>'+esc(slice.slice(end))}
 let saved=[];
 function scramble(el,word,dur,cb){const ab='АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЭЮЯ0123456789#%';const st=performance.now();(function f(){const k=Math.min(1,(performance.now()-st)/dur);const n=Math.floor(word.length*k);let s='';for(let i=0;i<word.length;i++){s+=i<n||word[i]===' '?word[i]:ab[Math.floor(Math.random()*ab.length)]}el.textContent=s;if(Math.random()<.3)sfx.tick();if(k<1)requestAnimationFrame(f);else cb&&cb()})()}
 function doSave(m){
@@ -480,11 +483,8 @@ function flyToMemory(m){
  an.onfinish=()=>{ghost.remove();addChip(m)};
  setTimeout(()=>{if(ghost.isConnected){ghost.remove();addChip(m)}},900);
 }
-let letT=null;
 function doLetter(){
- powerOn(()=>{stopTalk();closePanels();setMood('idle');R.pose='write';document.body.classList.add('lettering');$('letter').classList.add('show');
-  let s=120;const total=120;const upd=()=>{$('ringT').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');$('ringArc').setAttribute('stroke-dashoffset',(314*(1-s/total)).toFixed(1))};upd();
-  letT=setInterval(()=>{if(s>0){s--;upd()}else{clearInterval(letT)}},1000)});
+ powerOn(()=>{stopTalk();closePanels();setMood('warm');R.pose='rest';R.saved=4;sfx.warm();glyph('♥',true);document.body.classList.add('lettering');$('letter').classList.add('show')});
 }
 function doFinal(){
  powerOn(()=>{stopTalk();closePanels();const g=panelGen;R.pose='rest';setMood('scan');document.body.classList.add('finale');$('final').classList.add('show');
@@ -565,7 +565,7 @@ $('tVoice').onclick=()=>{voiceOn=!voiceOn;LS.set('astrik_voice',voiceOn?'1':'0')
 $('tFx').onclick=()=>{fxOn=!fxOn;LS.set('astrik_fx',fxOn?'1':'0');cfgPaint();send({t:'cfg',voice:voiceOn,fx:fxOn})};
 $('fs').onclick=()=>{try{const el=document.documentElement;(el.requestFullscreen?el.requestFullscreen():Promise.reject()).catch(()=>{})}catch(e){}};
 $('close').onclick=()=>document.body.classList.remove('pultOpen');
-$('cls').oninput=()=>{$('clsBadge').textContent='новый ученик · '+cls()};
+$('cls').oninput=()=>{const c=cls();$('clsBadge').textContent='новый ученик · '+c;$('wCls').textContent=c;$('ltrCls').textContent=c};
 const keyMap=new Map();
 SEQ.forEach((it,idx)=>keyMap.set(it.code,()=>fireIdx(idx)));
 UNI.forEach((u,i)=>keyMap.set(u.code,()=>fireUni(u,i)));
